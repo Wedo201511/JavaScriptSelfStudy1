@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>回到顶部扩展</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            -webkit-user-select: none;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 500%;
+            background: #11c900;
+            background: -webkit-linear-gradient(top, #11c900, lightblue, lightcoral, lightcyan, lightgoldenrodyellow, lightgreen, lightpink, lightsalmon, lightsalmon);
+            background: linear-gradient(top, #11c900, lightblue, lightcoral, lightcyan, lightgoldenrodyellow, lightgreen, lightpink, lightsalmon, lightsalmon);
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        a:hover,
+        a:active,
+        a:target,
+        a:visited {
+            text-decoration: none;
+            color: #000;
+        }
+
+        #goLink {
+            /* 当卷去一屏幕的尺寸后，再显示返回顶部按钮*/
+            display: none;
+            position: fixed;
+            bottom: 200px;
+            right: 80px;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: red;
+            opacity: 0.5;
+            filter: alpha(opacity(50));
+            /*css3盒子圆角*/
+            border-radius: 50%
+        }
+
+        #goLink:hover {
+            opacity: 1;
+            filter: alpha(opacity(100));
+        }
+        .floor{
+            margin: 10px auto;
+            height: 400px;
+            width: 600px;
+        }
+        #nav{
+            position: fixed;
+            left: 20px;
+            bottom: 300px;
+            margin: auto ;
+            width: 50px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="floor1" class="floor" style="background:orange;"></div>
+<div id="floor2"  class="floor" style="background:lightBlue;"></div>
+<div id="floor3"  class="floor" style="background:red;"></div>
+<div id="floor4"  class="floor" style="background:green;"></div>
+<div>
+        <ul id="nav">
+
+            <li>1F<span style="display: inline-block;" class="curr">1楼</span></li>
+
+            <li>2F<span>2楼</span></li>
+
+            <li>3F<span>3楼</span></li>
+
+            <li>4F<span>4楼</span></li>
+
+            <li>5F<span>5楼</span></li>
+
+            <li>6F<span>6楼</span></li>
+
+            <li>7F<span>7楼</span></li>
+
+        </ul>
+
+    </div>
+    <a href="javascript:;" id="goLink">Go</a>
+    <script>
+        var goLink = document.getElementById("goLink");
+        /*开始Go按钮是不显示的， 当浏览器卷去的高度超过一屏幕的时候才显示，反之隐藏*/
+        //只要浏览器的滚动条在滚动，我们就需要判断判断Go显示还是隐藏
+        //->滚动条滚动：拖动滚动条、鼠标滚轮、键盘上下键或者pageDown/pageUp键，点击滚动条的空白处或者箭头（自主操作的行为）...我们还可以通过JS控制scrollTop的值实现滚动
+        //->window.onscroll不管怎么操作，只要滚动条动了就会触发这个行为
+        window.onscroll = computedDisplay;
+        function computedDisplay() {
+            var curTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var curHeight = document.documentElement.clientHeight || document.body.clientHeight;
+            goLink.style.display = curTop > curHeight ? "block" : "none";
+        };
+
+        goLink.onclick = function () {
+            //->当点击Go的时候，让当前的Go消失
+            this.style.display = "none";//光这样还不行：往回走的时候又把window.onscroll行为触发了，让Go又显示了
+            //->
+            window.onscroll = null;
+            //->当点击Go的时候，首先把每一步要走的步长计算出来
+            var duration = 500, interval = 10, target = document.documentElement.scrollTop || document.body.scrollTop;
+            var step = (target / duration) * interval;
+
+            var timer = window.setInterval(function () {
+                var curTop = document.documentElement.scrollTop || document.body.scrollTop;
+                if (curTop === 0) {
+                    window.clearInterval(timer);
+                    window.onscroll = computedDisplay;//当动画结束后还需要把对应的方法重新绑定给window.onscroll
+                    return;
+                }
+
+                curTop -= step;
+                document.documentElement.scrollTop = curTop;
+                document.body.scrollTop = curTop;
+            }, interval);
+        }
+    </script>
+</body>
+
+</html>

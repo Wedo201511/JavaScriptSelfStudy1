@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>伪类的应用补充</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif
+        }
+
+        .box {
+            margin: 20px auto;
+            padding: 30px;
+            width: 300px;
+            border: 1px dashed green;
+            overflow: auto;
+        }
+
+        .box p {
+            line-height: 30px;
+        }
+
+        .box p:before {
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            content: "Virtual Element test";
+            background: lightgreen
+        }
+
+        .box p:after {
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            content: "Virtual Element test";
+            background: lightblue
+        }
+
+        .clear {
+            zoom: 1;
+        }
+        /*清除样式*/
+           /*清除浮动*/
+        .clear::after {
+            display: block;
+            width: 0;
+            height: 0;
+            content: "";
+            overflow: hidden;
+            clear: both;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        .list {
+            margin: 20px auto;
+            padding: 30px;
+            width: 300px;
+            border:1px solid #000
+        }
+
+        .list li {
+            float: left;
+            width: 100px;
+            height: 100px;
+            background:lightyellow;
+        }
+
+        /*:before    :after  在一个元素标签的前面后者后面，创建一个新的虚拟的标签，我们可以给这个虚拟的标签增加样式，也可以增加内容content等... */
+
+        /*CSS3中新增加的伪类：nth-child*/
+        .list li:nth-child(odd){
+            background: lightblue;
+        }
+        .list li:nth-child(even){
+            background: lightgreen;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+        <p>
+            要得到你必须要付出 要付出你还要学会坚持 如果你真的觉得很难 那你就放弃 但你放弃了就不要在抱怨 我觉得人生就是这样，世界真的是平衡的 每个人都是通过自己的努力 去决定自己生活的样子。
+        </p>
+    </div>
+    <ul class="list clear">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <div></div>
+    </ul>
+    <script>             
+
+        function getCss(curEle, attr) {
+            var val = null; reg = null;
+            if ("getComputedStyle" in window) {
+                val = window.getComputedStyle(curEle, null)[attr];
+            } else {
+                if (attr === "opacity") {
+                    val = curEle.currentStyle["filter"];//->"alpha(opacity=10);"
+                    //把获取到的结果进行剖析，获取数字，让数字除以100才和标准的浏览器保持一致
+                    reg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+                    val = reg.test(val) ? reg.exec(val)[1] / 100 : 1;
+                } else {
+                    val = curEle.currentStyle[attr];
+                }
+
+            }
+            reg = /^-?\d+(\.\d+)?(px|pt|rem|em)?$/i;
+            return reg.test(val) ? parseFloat(val) : val;;//这样写肯定不行，对于某些样式属性的值是不能去单位的，例如float.position、margin、padding、border这些复合值、background...... 60%
+        }
+        var box = document.getElementById("box");
+        console.log(getCss(box, "opacity"));
+    </script>
+</body>
+
+</html>

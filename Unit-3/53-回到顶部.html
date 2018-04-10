@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>分多次回到顶部</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            -webkit-user-select: none;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 500%;
+            background: #11c900;
+            background: -webkit-linear-gradient(top, #11c900, lightblue, lightcoral, lightcyan, lightgoldenrodyellow, lightgreen, lightpink, lightsalmon, lightsalmon);
+            background: linear-gradient(top, #11c900, lightblue, lightcoral, lightcyan, lightgoldenrodyellow, lightgreen, lightpink, lightsalmon, lightsalmon);
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        a:hover,
+        a:active,
+        a:target,
+        a:visited {
+            text-decoration: none;
+            color: #000;
+        }
+
+        #goLink {
+            /* display: block; 只要加了position自己就是块状元素了*/
+            position: fixed;
+            bottom: 200px;
+            right: 80px;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: red;
+            opacity: 0.2;
+            filter: alpha(opacity(20));
+            /*css3盒子圆角*/
+            border-radius: 50%
+        }
+
+        #goLink:hover {
+            opacity: 1;
+            filter: alpha(opacity(100));
+        }
+    </style>
+</head>
+
+<body>
+    <a href="javascript:;" id="goLink">Go</a>
+
+
+    <script>
+        var goLink = document.getElementById("goLink");
+        //回到顶部：
+        //总时间(duration)：500ms
+        //频率（interval）:10ms多长时间走一步
+        //总距离(target)：当前的位置（scrollTop）-目标的位置（0）
+        //求步长(step): target/duration * interval
+
+        goLink.onclick = function () {
+            //->当点击Go的时候，首先把每一步要走的步长计算出来
+            var duration = 500, interval = 10, target = document.documentElement.scrollTop || document.body.scrollTop;
+            var step = (target / duration) * interval;
+            //->
+            var timer = window.setInterval(function () {
+                var curTop = document.documentElement.scrollTop || document.body.scrollTop;
+                if (curTop === 0) {
+                    window.clearInterval(timer);
+                    return;
+                }
+
+                curTop -= step;
+                document.documentElement.scrollTop = curTop;
+                document.body.scrollTop = curTop;
+            }, interval);
+        }
+    </script>
+</body>
+
+</html>

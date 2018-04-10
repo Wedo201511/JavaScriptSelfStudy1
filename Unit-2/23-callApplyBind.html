@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Object.Create</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div id="div1">call方法 深入
+    </div>
+    <script>
+
+        "use strict"
+        var obj = { name: "珠峰培训" };
+        function fn(num1, num2) {
+            console.log(num1 + num2);
+            console.log(this);
+        }
+        //fn(100,200);//this->window
+        //fn.call(100, 200);//this->100 num1->200 num2->undefined
+        //fn.call(obj, 100, 200);//this->obj
+        //fn.call();//this->window 在严格模式下this->undefined
+        //fn.call(null);//this->window 在严格模式下this->null
+        //fn.call(undefined);//this->window 在严格模式下this->undefined
+
+        //apply 和call方法的作用是一模一样的，都是用来改变方法的this关键字，并且把方法执行；而且在严格模式下和非严格模式下，
+        //对于第一个参数是null/undefined这种情况的规律是一样的。
+        //apply 和call区别：语法不同
+        //fn.call(obj, 100, 200)
+        //fn.apply(obj, [100, 200])//call在给fn传参数的时候，是一个个传递 的，而apply是把要给fn传递的参数值统一的放在一个数组中进行操作
+
+
+        fn.call(obj, 1, 2);//->改变this和执行fn函数是一起都完成了
+        //->bind体现了JS中的预处理思想：事先把fn的this改变为我们想要的结果，并且把对应的参数值也准备好，以后要是用到了，直接执行即可
+        var tempFn=fn.bind(obj, 1, 2);//->只是改变了fn中的this为obj，并且给fn传递了两个参数值1,2，但是此时并没有把fn这个函数执行
+        //执行bind会有一个返回值，这个返回值就是我们把fn的this改变后的那个结果
+        tempFn();
+
+    </script>
+</body>
+
+</html>

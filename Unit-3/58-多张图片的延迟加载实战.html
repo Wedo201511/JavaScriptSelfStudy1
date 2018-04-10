@@ -1,0 +1,137 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <!--做移动端响应式布局页面，我们必须加meta viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        img {
+            display: block;
+            border: none;
+        }
+
+        .news {
+            /*移动端布局：最外层容器是不设定固定宽高的*/
+            padding: 10px;
+        }
+
+        .news li {
+            position: relative;
+            padding: 10px 0;
+            height: 60px;
+            border-bottom: 1px dashed gray;
+        }
+
+        .news li>div:nth-child(1) {
+            position: absolute;
+            top: 10px;
+            left: 0px;
+            width: 75px;
+            height: 65px;
+            background: url("img/loading.gif") no-repeat center center;
+            background-size: 100%;
+        }
+
+        .news li>div:nth-child(1) img {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .news li>div:nth-child(2) {
+            margin-left: 80px;
+            height: 60px;
+        }
+
+        .news li>div:last-child h2 {
+            height: 20px;
+            line-height: 20px;
+            /*实现文字超出一行，自动裁切*/
+            overflow: hidden;
+            text-overflow: ellipsis;
+            /*裁切下去的部分，以...代表*/
+            white-space: nowrap;
+            /*强制不换行*/
+        }
+
+        .news li>div:last-child p {
+            line-height: 20px;
+            font-size: 12px;
+            color: #616161;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="news" class="news">
+        <li>
+            <div>
+                <img trueImage="img/1.png" src="" />
+            </div>
+            <div>
+                <h2>lalall易燃易爆炸lalalal</h2>
+                <p>百度人物资料 华晨宇,1990年2月7日生于湖北十堰 ,中国男歌手,毕业于武汉音乐学院。2013年,参加湖南卫视《快乐... 详情» 查看更多 a 乐...</p>
+            </div>
+        </li>
+    </ul>
+    <script type="text/javascript" src="utils.js"></script>
+    <script>
+
+        var news = document.getElementById("news");
+        var imgList = news.getElementsByTagName("img");
+        var jsonData = null;
+
+        //1、获取需要绑定的数据AJAX    
+        ~function () {
+            var xhr = new XMLHttpRequest;
+            /*url地址后面加的随机数，是在清除每一次get请求产生的缓存    false采用同步*/
+            xhr.open("get", "json/newsList.txt?_" + Math.random(), false);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && /^2\d{2}$/.test(xhr.status)) {
+                    var val = xhr.responseText;
+                    jsonData = utils.jsonParse(val);
+                }
+            };
+            xhr.send(null);
+        }();
+        console.log(jsonData);
+
+        //2、进行数据绑定（字符串拼接）
+        ~function () {//保护内部私有变量不受干扰
+            var str = '';
+            if (jsonData) {
+                for (var i = 0, len = jsonData.length; i < len; i++) {
+                    var curData = jsonData[i];
+                    str += '<li>';
+                    str += '<div><img trueImage="' + curData['img'] + '" src=""/></div>';
+                    str += '<div><h2>' + curData["title"] + '</h2>';
+                    str += '<p>' + curData["desc"] + '</p>';
+                    str += '</div>';
+                    str += "</li>";
+                }
+            }
+
+            news.innerHTML = str;
+        }();
+        //3、图片延迟加载
+        function lazyImg() {
+
+        }
+    </script>
+</body>
+
+</html>

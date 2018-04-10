@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Object.Create</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div id="div1">call方法 深入
+    </div>
+    <script>
+        //模拟slice()克隆
+        Array.prototype.mySlice = function () {
+            //this->当前要操作的这个数组
+            //内置的代码
+            var ary = [];
+            for (var i = 0; i < this.length; i++) {
+                ary[ary.length] = this[i];
+            }
+
+            //我们自己写一份把arguments转换为数组的代码
+            var ary = [];
+            // for (var i = 0; i < arguments.length; i++) {
+            //     ary[ary.length] = arguments[i];
+            // }
+
+            return ary;
+        };
+        function avgFn() {
+            //arguments.__proto__=Array.prototype;
+            // var ary = [];
+            // //1、将类数组转化为数组:把arguments克隆一份一模一样的数组处理
+            //->优化：借用数组原型上的slice方法，当slice执行的时候，让方法中的this变为我要处理的arguments，实现将类数组arguments转换为数组
+            // for (var i = 0; i < arguments.length; i++) {
+            //     ary[ary.length] = arguments[i];
+            // }
+            //->优化：借用数组原型上的slice方法，当slice执行的时候，让方法中的this变为我要处理的arguments，实现将类数组arguments转换为数组
+            var ary = Array.prototype.slice.call(arguments);
+            // ary=[].slice.call(arguments);
+
+            // 2、给数组排序，去掉开头和结尾，剩下的求平均数
+            ary.sort(function (a, b) { return a - b; })
+            ary.pop();
+            ary.shift();
+            console.log(ary.join('+'));
+            console.log(eval(ary.join('+')));//浏览器的弊端，计算不精确
+            var result = eval(ary.join('+')) / ary.length
+            return result.toFixed(2);
+        }
+        // var res = avgFn(9.8, 9.7, 10, 9.9, 9.0, 9.8, 3.0);
+        //console.log(res);
+        function avgFn2() {
+            //不转化为数组，所有的操作都借用数组的方法
+            var ary = Array.prototype.sort.call(arguments, function (a, b) { return a - b; });
+            [].shift.call(arguments);
+            [].pop.call(arguments);
+            var str = [].join.call(arguments, '+')
+            return (eval(str) / arguments.length).toFixed(2);
+            console.log(arguments);
+            // ary.sort(function (a, b) { return a - b; })
+            // ary.pop();
+            // ary.shift();
+            // console.log(ary.join('+'));
+            // console.log(eval(ary.join('+')));//浏览器的弊端，计算不精确
+            // var result = eval(ary.join('+')) / ary.length
+            // return result.toFixed(2);
+        }
+        var res2 = avgFn2(9.8, 9.7, 10, 9.9, 9.0, 9.8, 3.0);
+        console.log(res2);
+    </script>
+</body>
+
+</html>

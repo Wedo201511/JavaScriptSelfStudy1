@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Object.Create</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div id="div1">有本事点我啊 </div>
+
+    <script>
+
+        var obj = {
+            getX: function () { 
+                console.log('get x');
+            }
+        };
+        var obj2 = Object.create(obj);
+        //->obj2
+        //__proto__:
+        //    getX : function...
+        //    __proto__ : Object.prototype 
+
+        obj2.getX();
+        obj.getY = function () { 
+            console.log(" get y");
+        };
+        obj2.getY();
+
+
+
+    </script>
+</body>
+
+</html>

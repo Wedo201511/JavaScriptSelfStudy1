@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tab</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div id="div1">有本事点我啊 </div>
+
+    <script>
+        function Fn() {
+            this.x = 100;
+        }
+        Fn.prototype.getX = function () {
+            console.log(this.x);
+        }
+        var f1 = new Fn;
+        var f2 = new Fn;
+        var flag=f1.hasOwnProperty("x");
+        console.log("flag: "+flag);
+        console.log(Fn.prototype.constructor===Fn);
+        console.log(Fn.prototype.constructor);
+        console.log(f1.getX === f2.getX);
+        console.log(f1.__proto__.getX === f2.getX);
+        console.log(f1.getX === Fn.prototype.getX);
+      
+
+        //2、this的问题：在类中出现的this.xxx=xxx中的this都是当前类的实例，
+        //而某一个属性值（方法），方法中的this需要看方法执行的时候，前面是否有点“.”才能知道this是谁
+        function CreateJsPerson(name, age) {         
+            this.name = name;
+            this.age = age;
+            // this.writeJs = function () {
+            //     console.log("my name is " + this.name + ", I can write js 啦~~");
+            // };             
+        }
+        CreateJsPerson.prototype.writeJs=function () {
+                console.log("my name is " + this.name + ", I can write js 啦~~");
+            };             
+        var p1 = new CreateJsPerson("尹华芝", 18);//CreateJsPerson中的this是p1
+        p1.writeJs();
+        var p2 = new CreateJsPerson("王小波", 48); 
+        console.log(p1.writeJs === p2.writeJs); 
+    </script>
+</body>
+
+</html>

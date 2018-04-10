@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        //=>JS 控制台输出：方便开发人员进行调试
+        //F12（FN+F12）打开浏览器的控制台
+        //console.log：在控制台输出，优势不会转换数据类型，输出什么格式的数据都可以
+        console.log({ name: 'zhufeng' });
+
+        console.dir({ name: 'zhufeng' });
+        //=>console.dir 比LOG输出的更加详细
+        //=>console.table：把JSON数据展示成为一个表格
+        //...扩展：console还有哪些输出方式？（console.debug/console.warn/console.trace...）
+
+        var obj = [{ name: 'AA', age: 25 }, { name: 'BB', age: 66 }];
+        console.log(obj);
+        console.table(obj);
+
+         //=>document.write:向页面中打印输出内容（现在基本已经不用了，之前可能用它在段落间插入一个广告，做一个广告位的处理，不过现在也不这么用了）
+         document.write('开始啦~');
+    </script>
+</body>
+</html>

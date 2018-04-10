@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <script>
+        //[]有屏蔽元字符特殊含义的作用
+        //在中括号中出现的所有的字符都是代表本身意思的字符（没有特殊的含义）
+        // var reg=/^[.]$/;
+        // console.log(reg.test("1"));
+        // console.log(reg.test("."));
+
+
+        var reg = /^18|19$/;//18\19\181\189\119\819\1819...
+        console.log(reg.test("18"));
+        console.log(reg.test("19"));
+        console.log(reg.test("1819"));
+        console.log(reg.test("819"));
+        console.log(reg.test("182"));
+        //()
+        //1、分组的作用一：改变x|y的默认的优先级
+        var reg = /^18|19$/;//18\19\181\189\119\819\1819...
+        var  reg = /^(18|19)$/;//18、19
+
+
+        //1、有效数字的正则：正数 负数 零、小数
+        //12.3 12 -12 +12 0.2 091)可以出现小数点也可以不出现，但是一旦出现后面必须跟着至少一位数字
+        //2）开头可以有+/-，也可以没有
+        //3）整数部分，一位数可以是0-9之间的一个或多位数不能以0开头
+            //整数部分：  var reg = /^(\d|([1-9]\d+))$/
+        var reg = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
+
+    
+
+    </script>
+</body>
+
+</html>

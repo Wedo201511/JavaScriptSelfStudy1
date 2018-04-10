@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>图片的延迟加载</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+
+        }
+
+        img {
+            display: block;
+            border: none;
+        }
+
+        .banner {
+            margin: 10px auto;
+            width: 150px;
+            height: 150px;
+            border: 1px dashed green;
+            background-image: url("img/loading.gif");
+            /*给当前的区域加一个默认图占位，告诉用户此处的图片正在加载中*/
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .banner img {
+            display: none;
+            /*在开始的时候，img的src属性没有值，这样在IE中会显示一张碎图，不美观。so我们让它隐藏，当真实的图片加载完成后再显示*/
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!--作用：保证页面打开的速度（3秒内如果页面打不开就已经是死亡页面了）
+数据、结构、样式都加载渲染完成之后，再加载图片
+原理：
+1）对于首屏内容中的图片：首先给对应的区域一张默认图片占着位置（默认图需要非常的小，1KB一般可以维持在5kb以内），当首屏内容都加载完成后（或者也可以给一个延迟的时间），我再开始加载真实的图片
+2）对于其它屏中的图片：也是给一张默认的图片占位，当滚动条滚动到对应区域的时候，我们再开始加载真实的图片
+扩展：数据的异步加载，开始只把前两屏的数据加载绑定出来，后面的数据不进行处理，当页面滚动到对应的区域的时候再从新请求数据然后绑定渲染
+
+为什么做了图片的延迟加载，页面就快了呢？
+<img>
+    -->
+    <div class="banner" id="banner">
+        <img src="" trueImg="img/1.png" />
+    </div>
+
+    <script>
+
+        //每一个浏览器对于定时器的等待时间都有一个最小的值，谷歌：5~6ms， IE：10~13ms。如果设置的等待时间小于这个值，不起作用，还是需要等到最小时间才执行的；尤其是写0也不是立即执行
+        var banner = document.getElementById("banner"),
+            imgFirst = banner.getElementsByTagName("img")[0];
+
+        //window.onload
+        window.setTimeout(function () {
+            //imgFirst.src = imgFirst.getAttribute("trueImg");
+            //imgFirst.style.display = "block";
+            //以上处理还是不完整的，如果我们获取的真实图片地址是错误的，当赋值给IMG的SRC属性的时候，不仅控制台会报错，而且页面中会出现碎图/×图，影响视觉效果
+
+            //->获取图片的地址，验证地址有效性，有效时赋值，无效时不进行赋值处理
+            //var oImg=document.createElement("img");
+            var oImg = new Image;
+            oImg.src = imgFirst.getAttribute("trueImg");
+            oImg.onload = function () {//->当图片能够正常加载
+            //所有的事件绑定都是异步编程的、
+                imgFirst.src = this.src;
+                imgFirst.style.display = "block";
+                oImg=null;
+                //console.log("图片加载完成！")
+                var nowTime=new Date();
+                console.log(nowTime-time);//图片加载所用的时间
+            };
+            console.log("图片正在加载中。。。");
+            var time=new Date();
+        }, 500)
+
+    </script>
+</body>
+
+</html>

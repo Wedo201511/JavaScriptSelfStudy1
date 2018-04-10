@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tab</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div id="div1">有本事点我啊 </div>
+
+    <script>
+
+        function Fn() {
+            this.x = 100;
+            this.y = 200;
+            this.getY = function () {
+                console.log(this.y);
+            }
+        }
+        // Fn.prototype.getX = function () {
+        //         console.log(this.x);
+        //     }
+        Fn.prototype = {
+           // constructor: Fn,
+            y: 300,
+            getX: function () {
+                console.log(this.x);
+            },
+            getY: function () {
+                console.log(this.y);
+            }
+        };
+
+        var f = new Fn;
+        f.getX();    //-> 100
+        f.__proto__.getX(); //-> undefined
+
+       // Array.prototype.unique=function(){};
+
+       
+        Array.prototype={
+            constructor:Array,
+            unique:function(){}
+        };
+        console.dir((Array.prototype));
+    </script>
+</body>
+
+</html>

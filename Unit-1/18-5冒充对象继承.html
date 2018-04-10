@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>冒充对象继承</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div id="div1">冒充对象继承 </div>
+
+    <script>
+        function A() {//父类A
+            this.x = 100;
+            this.getXX = function () { };
+        }
+        A.prototype.getX = function () {
+            console.log(this.x);
+        }
+        A.prototype.y = 200;
+        function B() {
+            var temp = new A;
+            for (var key in temp) {
+                this[key] = temp[key];
+            }
+        };
+        var n = new B;
+        n.getX();
+
+    </script>
+</body>
+
+</html>

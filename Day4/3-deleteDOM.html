@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tab</title>
+    <meta charset="utf-8" />
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- div.box#box${$}*3-->
+
+    <div class="box" id="box1">1</div>
+    <div class="box" id="box2">2
+        <div>test</div>
+        <!--<div>test</div>-->
+    </div>
+    <script>
+        //->create
+        var box1 = document.getElementById('box1');
+        var box2 = document.getElementById('box2');
+        //document.body.removeChild(oDiv1);
+        //box2.parentNode.removeChild(box2);
+        /*
+            var box3=box2.cloneNode();
+            document.body.appendChild(box3);
+        
+            var box4=box2.cloneNode(true);
+            document.body.appendChild(box4);
+        */
+
+        box2.onclick = function () {
+            alert(2);
+        };
+        var box3=box2.cloneNode(true);
+        document.body.appendChild(box3);
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tab</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div id="div1">有本事点我啊 </div>
+
+    <script>
+        function Fn() {
+
+        }
+        var f1 = new Fn();
+        var f2 = new Fn;
+        //1、在构造函数模式中，new FN执行，如果Fn中不需要传递参数的话，后面的小括号可以省略。此规则，普通函数不适用。
+
+
+        function Fn() {
+            //this——>f1
+            this.x = 100;
+            this.getX = function () {
+                //this——>需要看getX执行的时候才知道
+                console.log(this.x);
+            }
+        }
+        var f1 = new Fn;
+        //2、this的问题：在类中出现的this.xxx=xxx中的this都是当前类的实例，
+        //而某一个属性值（方法），方法中的this需要看方法执行的时候，前面是否有点“.”才能知道this是谁
+        function CreateJsPerson(name, age) {         
+            this.name = name;
+            this.age = age;
+            this.writeJs = function () {
+                console.log("my name is " + this.name + ", I can write js 啦~~");
+            }; 
+            this.getX = function () {
+                //this——>需要看getX执行的时候才知道
+                console.log(this.x);
+            };
+        }
+        var p1 = new CreateJsPerson("尹华芝", 18);//CreateJsPerson中的this是p1
+        p1.writeJs();
+
+        var p2 = new CreateJsPerson("王小波", 48);
+
+
+
+        console.log(p1.getX === p2.getX);//false
+        console.log(p1.writeJs === p2.writeJs); undefined
+    </script>
+</body>
+
+</html>

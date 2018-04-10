@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>跑马灯</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+
+        }
+
+        #box {
+            margin: 50px auto;
+            padding: 0 20px;
+            width: 1000px;
+            height: 35px;
+            line-height: 35px;
+            background: lightgreen;
+            border: 1px dashed red;
+        }
+
+        #wrapper {
+            white-space: nowrap;
+            height: 35px;
+            overflow: hidden;
+        }
+
+        #wrapper span {
+            font-size: 16px;
+            color: red;
+            font-weight: bold;
+        }
+
+        #wrapper div {
+            display: inline-block;
+            /*内联块状元素，让两个块状元素div，conEnd放到conBegin的后面*/
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="wrapper">
+            <div id="conBegin">
+                <span>通知：</span>据悉，因为“赏樱”期间时而发生的不文明现象，武汉大学通过微博“点赞随手拍”和“不雅曝光台”互动，为文明点赞，对不文明监督；对于行为恶劣且劝阻不改的失信游客，武汉大学将在预约系统中标记其身份，
+                今后预约将会被拒绝。新京报记者发现，武汉大学官方微博开设的“曝光台”在近日连续公布了多幅反映游客不文明行为的图片。包括折枝、爬树、刻字、乱丢垃圾等l
+            </div>
+            <div id="conEnd">
+                <span>通知：</span>据悉，因为“赏樱”期间时而发生的不文明现象，武汉大学通过微博“点赞随手拍”和“不雅曝光台”互动，为文明点赞，对不文明监督；对于行为恶劣且劝阻不改的失信游客，武汉大学将在预约系统中标记其身份，
+                今后预约将会被拒绝。新京报记者发现，武汉大学官方微博开设的“曝光台”在近日连续公布了多幅反映游客不文明行为的图片。包括折枝、爬树、刻字、乱丢垃圾等l
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        //每一个浏览器对于定时器的等待时间都有一个最小的值，谷歌：5~6ms， IE：10~13ms。如果设置的等待时间小于这个值，不起作用，还是需要等到最小时间才执行的；尤其是写0也不是立即执行
+        var n = 0;
+        window.setTimeout(function () {
+            n += 2;
+            console.log(n);
+        }, 5);
+        window.setTimeout(function () {
+            n += 5;
+            console.log(n);
+        }, 5);
+        console.log(n);
+        for (var i = 0; i < 10000000; i++) { }
+        console.log(n);
+
+    </script>
+</body>
+
+</html>

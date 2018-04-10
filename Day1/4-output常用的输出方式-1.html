@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>提示框（浏览器内置的）</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <script>
+        //=>JS中提供的浏览器弹框
+
+        //1.alert:在浏览器中弹出一个提示框（提供确定按钮，点击确定弹框消失）
+        window.alert({name:'Xiao Ming'});//=>  [object Object]
+        //alert  ([12,23]);//=>12,23
+        ////=>使用ALERT弹框提示信息，提示的内容最后都会被转换为字符串输出（调用了toString这个方法）
+        //alert(1+1);//=>"2"
+
+
+        //2. confirm:在alert的基础上增加了让用户选择性的操作（提供两个按钮：确定和取消）
+        var zFlag = window.confirm('Are you sure delete this?');
+        //alert(zFlag);
+        ////当用户点击确定按钮的时候，我们接收到的结果是true，
+        ////当用户点击取消按钮的时候，我们接收到的结果是false，此后我们可以根据接收到的结果做不同的处理即可
+
+        //3.prompt,在confirm基础上增加让用户输入的效果
+        var flag = window.prompt('Are you sure to delete this?');
+        alert(flag);
+        //=>用户点击取消按钮，我们获取到的结果是null,
+        //如果用户点击的是确定按钮，我们将会获取到用户输入的内容（如果用户没有输入任何内容，获取到的结果是空字符串）
+
+        //=>真实的项目中，尤其是需要样式精美的网站中，我们的提示框一般都是自己封装插件和组件来实现的，
+        //不会用内置的（使用原生JS封装模态框组件）
+
+    </script>
+
+
+</body>
+</html>

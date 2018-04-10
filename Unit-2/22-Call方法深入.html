@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Object.Create</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div id="div1">call方法 深入
+
+        <p name="n1"></p>
+        <p name="n1"></p>
+        <p name="n3"></p>
+        <p name="n3"></p>
+        <p name="n2"></p>
+    </div>
+    <script>
+
+        // Function.prototype.myCall= function(context){
+        //     //->myCall方法中的this就是当前我要操作和改变其this关键字的那个函数名
+        // //->1、让fn中的this关键字变为context的值
+        //     //->让this这个函数中的“this关键字”变为context
+        //    //eval(this.toString().replace('this','context'));
+
+        // //->2、让fn方法执行
+        // this();
+        // }
+
+
+        function fn1() { console.log(1); }
+        function fn2() { console.log(2); }
+        fn1.call(fn2);
+        fn1.call.call(fn2);
+        fn1.call.call.call.call(fn2);
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Call继承</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div id="div1">Call继承 </div>
+
+    <script>
+
+        function A() {//父类A
+            this.x = 100;
+        }
+        A.prototype.getX = function () {
+            console.log(this.x);
+        }
+        function B() {
+            A.call(this);
+        };
+        var n = new B;
+        console.log(n.x);
+
+
+   
+
+    </script>
+</body>
+
+</html>

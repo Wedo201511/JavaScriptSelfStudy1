@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>29-数据绑定及dom回流</title>
+    <meta charset="utf-8" />
+    <style>
+        body,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #ul1 {
+            margin: 10px auto;
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #000000;
+        }
+
+        #ul1 li {
+            position: relative;
+            padding-left: 28px;
+            height: 35px;
+            line-height: 35px;
+            text-overflow: ellipsis;
+            /*截取后以...作为省略    clip：没有省略号*/
+            white-space: nowrap;
+            /*强制不换行*/
+            overflow: hidden;
+            /*溢出隐藏*/
+        }
+
+        #ul1 li span {
+            display: block;
+            position: absolute;
+            top: 6px;
+            left: 0;
+            width: 21px;
+            height: 21px;
+            line-height: 20px;
+            text-align: center;
+            border: 1px solid #ccc;
+            font-size: 12px;
+            border-radius: 50%;
+        }
+
+        #ul1 li span.bg {
+            background: #ff3333;
+            color: #fff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div>实现把JSON数据动态显示到页面里</div>
+    <ul id="ul1" >
+        <li>
+            <span class="bg">01</span>会议应出席代表2980人，出席2962人，缺席18人，出席人数符合法定人数。</li>
+        <li>
+            <span class="bg">02</span>李建国说，制定监察法是贯彻落实党中央关于深化国家监察体制改革决策部署的重大举措；</li>
+        <li>
+            <span class="bg">03</span>王勇指出，总的看，这次国务院机构改革贯彻落实党的十九大和十九届三中全会精神，落实坚持和加强党的全面领导的要求，适应新时代中国社会主要矛盾变化，聚焦发展所需、基层所盼、民心所向，按照优化协同高效的原则，既立足当前也着眼长远，优化了国务院机构设置和职能配置，理顺了职责关系。</li>
+    </ul>
+    <script src="json/json-bind.js"></script>
+    <script>
+        var oUl = document.getElementById("ul1");
+        var oLis = oUl.getElementsByTagName("li");
+        for (var i = 0; i < oLis.length; i++) {
+            oLis[i].onmouseover = function () {
+                this.style.backgroundColor = "pink";
+            };
+            oLis[i].onmouseout = function () {
+                this.style.backgroundColor = "";
+            };
+        }
+        //方式1、利用动态创建元素节点和把它追加到页面中的方式实现数据绑定
+        //优势：把需要动态绑定的内容一个个的追加到页面中，对原来的元素没有任何影响
+        //弊端：每当创建一个li，我们就添加到页面中，就引发一个回流，最后导致引发回流的次数过多，影响性能
+        // for (var i = 0; i < ary.length; i++) {
+        //     var oLi = document.createElement("li");
+        //     oLi.innerHTML = "<span>" + (i + 4) + "</span>" + ary[i].title;
+        //     oUl.appendChild(oLi);
+        // }
+
+        //方式2、字符串拼接：首先循环需要绑定的数据，把需要动态绑定的标签以字符串的方式拼接到一起，拼接完成后，最后统一的添加到页面中
+        //->“字符串拼接绑定数据是我们工作中最常用的一种数据绑定方式”
+        //->模板引擎数据绑定（jade、kTemplate、 angular.js、backbone.js）所有模板引擎绑定数据的原理就是字符串拼接
+        // var str = "";
+        // for (var i = 0; i < ary.length; i++) {
+        //     var cur = ary[i];
+        //     str += "<li>";
+        //     str += "<span>" + (i + 4) + "</span>" ;
+        //     str += cur.title;
+        //     str += "</li>";     
+        // }
+        // oUl.innerHTML+=str;//弊端：我们把新拼接的字符串添加到@ul中，原有的三个li的鼠标滑过效果都消失了（原来标签绑定的事件都消失了）
+        //oUl.innerHTML=oUl.innerHTML+str;(把之前的三个li以字符串的方式获取到 + str)拼接完成的整体还是一个字符串，最后再把字符串统一的添加到页面中，
+        //浏览器还需要把这个字符串渲染成为对应的标签，所以之前的事件消失了
+        //优势：事先把内容拼接好，最后统一添加到页面中，只引发一次回流，比第一种方式省性能
+
+        //JS中DOM深入知识：
+        //->回流（重排reflow）：当页面中的HTML结构发生改变（增加、删除元素、位置发生改变...），浏览器都需要从新的计算一遍最新的Dom结构，从新的对当前页面进行渲染。这就叫做回流
+        //->重绘：某一个元素的部分样式发生改变了(背景颜色)，浏览器只需要重新的渲染当前的元素即可
+        //js优化2.尽量减少DOM的回流
+
+        //方式3、文档碎片（期望值：回流次数只触发一次&不影响之前的元素）
+        var frg=document.createDocumentFragment();//->创建一个文档碎片，相当于临时创建了一个容器
+        for (var i = 0; i < ary.length; i++) {
+            var cur = ary[i];
+            var oLi = document.createElement("li");
+            oLi.innerHTML = "<span>" + (i + 4) + "</span>" + cur.title;
+            frg.appendChild(oLi);
+        }
+        oUl.appendChild(frg);
+        frg=null;//手动释放对内存
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tab</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <!-- div#box$*3 [TAB]-->
+    <input type="text" name="box1"></input>
+    <div id="box1" class="box mark">01</div>
+    <div id="box2" class="mark">02</div>
+    <div id="box1" class="box">03</div>
+
+    <script> 
+        console.log(document.querySelectorAll('#box1'));//id选择器
+        console.log(document.querySelectorAll('.box'));////样式类型
+        console.log(document.querySelectorAll('div'));//标签选择器
+        console.log(document.querySelectorAll('body>div'));//子代选择器
+        console.log(document.querySelectorAll('#box li'));//后代选择器
+    </script>
+
+
+</body>
+
+</html>

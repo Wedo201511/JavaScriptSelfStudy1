@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>29-数据绑定及dom回流</title>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="css/tab.css"></link>
+</head>
+
+<body>
+    <div class="box">
+        <table id="tab" class="newsBox" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <th class="cursor">姓名</th>
+                    <th class="cursor">年龄</th>
+                    <th class="cursor">武力</th>
+                    <th class="cursor">性别</th>
+                </tr>
+            </thead>
+            <tbody id="bodyData">
+
+            </tbody>
+        </table>
+    </div>
+    <!--引入JS是有顺序限制的：根据JS之间的依赖关系，我们按照顺序依次引入，顺序一旦出现问题，就会发生错误（require.js是专门用来解决依赖关系的，按需加载）-->
+    <script type="text/javascript" charset="utf-8" src="utils.js"></script>
+    <!-- <script type="text/javascript" charset="utf-8" src="js/tab.js"></script> -->
+    <!-- <script type="text/javascript" charset="utf-8" src="js/table-this优化.js"></script> -->
+    <script type="text/javascript" charset="utf-8" src="js/table-MultyColumSort.js"></script>
+    <script type="text/javascript" charset="utf-8" src="json/json-data.js"></script>
+
+</body>
+
+</html>

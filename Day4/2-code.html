@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tab</title>
+    <meta charset="utf-8" />
+    <style>
+    .box{
+        width: 100px;
+        height: 100px;
+        background: red;
+        margin: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- d
+        iv#box>(ul>li*3)+div{内容￥}*3-->
+ <div id="box2" class="box">
+          <!-- d我就是个注释-->
+     <ul>
+         <li>页卡01</li>
+         <li>02</li>
+         <li>03</li>
+     </ul>
+         <!-- d我就是个注释-->
+     <div>内容1</div>
+     <div>内容2</div>
+     <div>内容3</div>
+    </div>
+
+<script>
+    //->create
+    var oDiv=document.createElement('div');
+    oDiv.id='div1';
+    oDiv.className='box';
+    oDiv.innerHTML="1";
+    //->add
+   // document.body.appendChild(oDiv);
+   document.body.insertBefore(oDiv,box2);
+
+   var link=document.createElement('a');
+   link.href='http://www.zhufengpeixun.cn/stu/?name=zxt&age=27&sex=0#teacher'
+   console.dir(link);
+</script>
+
+ 
+
+</body>
+
+</html>
