@@ -12,7 +12,7 @@
     *target->每一个方向的目标位置{left:xxx,right:xxx,...}
     *duration->动画的总时间
     */
-    function move(curEle,target,duration) {
+    function move(curEle, target, duration, callBack) {
         //->在每一次执行方法之前，首先把当前元素正则运行的动画结束掉
         window.clearInterval(curEle.zhufengTimer);
 
@@ -30,6 +30,11 @@
             if (time >= duration) {//到达目标，结束动画
                 utils.css(curEle, target);
                 window.clearInterval(curEle.zhufengTimer);
+
+                //->在动画结束的时候，执行回调函数，（如果用户把回掉函数传递进来了，就把用户传递进来的那个函数执行）
+                //typeof callBack === "function" ? callBack() : null;              
+                /*callBack && callBack()    逻辑与，如果左边为真返回右边值，如果左边为假，返回左边；callBack不传时，是undefined，是假，右边不执行。*/
+                callBack && callBack.call(curEle);//不仅执行，还让回调函数中的this变为当前要操作的元素
                 return;
             }
             //->没到达目标，分别获取每一个方向的当前位置，然后赋值

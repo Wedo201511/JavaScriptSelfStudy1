@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>76-多方向匀速运动</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0px;
+            left: 100px;
+            margin: 0;
+            padding: 0;
+            height: 200px;
+            width: 200px;
+            background: red;
+
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+
+    <script src="js/utils2.js"></script>
+    <script src="js/tween.js"></script>
+    <script>    
+        //->回调函数：把一个函数A当做值，传递给另外一个函数B，这样B执行的时候，可以在任何位置执行一到多次A方法
+        function A() {
+            console.log("A");
+        }
+        function B(callBack) {
+            console.log("B");
+            for (let i = 0; i < 5; i++) {
+                callBack();
+            }
+        }
+        B(A);
+        //->回调函数的应用
+        ary.sort(function (a, b) {
+            return a - b;
+        });
+        //正则匹配几次，回调函数就执行几次
+        str.replace(/\d+/g, function () {
+
+        });
+        //Timer
+        window.setTimeout(function () {
+
+        }, 10);
+        
+        /********************************************/
+        // function fn(callBack){    
+        //     callBack();
+        // }
+        // var obj={fn:fn};
+        // obj.fn();//Uncaught TypeError: callBack is not a function
+        
+        /********************************************/
+        function fn(callBack) {
+            //this是obj
+            console.log(1);
+            if (typeof callBack === "function") {
+                callBack();//执行的时候前面没有点，所以匿名函数中的this指向window
+            }
+        }
+        var obj = { fn: fn };
+        obj.fn(function () {
+            console.log(this);//this是window
+        });
+
+        /********************************************/
+        function fn(callBack) {
+            //this是obj
+            console.log(1);
+            if (typeof callBack === "function") {
+                callBack.call(obj, 100, 200);//改变this指向
+            }
+        }
+        var obj = { fn: fn };
+        obj.fn(function (num1, num2) {
+            console.log(this, num1, num2);
+        });
+
+    </script>
+</body>
+
+</html>

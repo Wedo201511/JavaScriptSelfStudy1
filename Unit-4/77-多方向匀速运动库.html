@@ -18,7 +18,7 @@
             padding: 0;
             height: 200px;
             width: 200px;
-            background: red;
+            background: green;
 
             opacity: 1;
             filter: alpha(opacity=100);
@@ -36,10 +36,13 @@
         window.zhufengAnimate(oBox, {
             left: 1000,
             top: 600,
-            opacity: 0,
+            opacity: 0.5,
             width: 20,
             height: 20
-        }, 1000)
+        }, 1000,function(){
+            //this->oBox
+            utils.css(this,"background","red");
+        })
 
     </script>
 </body>
