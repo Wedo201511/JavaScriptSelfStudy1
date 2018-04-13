@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>72-边界问题</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            height: 200px;
+            width: 200px;
+
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+
+    </div>
+    <script src="js/utils2.js"></script>
+    <script>    
+        //不规定总时间，只规定步长
+        var oBox = document.getElementById("box");
+        var maxLeft = utils.win("clientWidth") - oBox.offsetWidth;
+        var step = 5;
+        var timer = window.setInterval(function () {
+            var curLeft = utils.css(oBox, "left");
+            if (curLeft + step >= maxLeft) {
+                utils.css(oBox, "left", maxLeft);//边界判断加上步长计算
+                window.clearInterval(timer);
+                return;
+            }
+            curLeft += step;
+            utils.css(oBox, "left", curLeft);
+
+        }, 10);
+
+
+
+    </script>
+</body>
+
+</html>

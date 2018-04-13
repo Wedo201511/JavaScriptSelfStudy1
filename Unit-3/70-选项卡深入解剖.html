@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>65-setCss</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            -webkit-user-select: none;
+            /*禁止用户选中文字*/
+        }
+
+        .box {
+            width: 500px;
+            margin: 10px auto;
+
+
+        }
+
+        .box ul {
+            /* overflow: hidden;清除子元素的浮动对父级元素的影响 */
+            position: relative;
+            top: 1px;
+        }
+
+        .box ul:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+        .box ul li {
+            list-style: none;
+            float: left;
+            margin-right: 15px;
+            width: 100px;
+            height: 30px;
+            border: 1px solid green;
+            line-height: 30px;
+            /*垂直居中*/
+            text-align: center;
+            /*水平居中*/
+            cursor: pointer;
+
+        }
+
+        .box ul li.select {
+            background: lightblue;
+            border-bottom-color: lightblue;
+        }
+
+        .box div {
+            height: 150px;
+            line-height: 150px;
+            border: 1px solid green;
+            background: lightblue;
+            text-align: center;
+            /* clear: both;清除哥哥元素浮动对弟弟元素的影响 */
+            display: none;
+        }
+
+        .box div.select {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="tabFir">
+        <ul id="tabOptions">
+            <li class="select">页卡一</li>
+            <li>页卡二</li>
+            <li>页卡三</li>
+        </ul>
+        <div class="select">
+            <div>1 </div>
+            <div>2 </div>
+            <div>3 </div>
+            <div>4 </div>
+
+        </div>
+        <div>内容二</div>
+        <div>内容三</div>
+    </div>
+
+    <script src="../JQuery/node_modules/jquery/dist/jquery.js"></script>
+    <script src="utils2.js"></script>
+    <script>
+        var tabFir = document.getElementById("tabFir");
+        var tabOptions = document.getElementById("tabOptions");
+        var oList = utils.children(tabOptions);
+        var oDiv = utils.children(tabFir, "div");
+        function changeTab(n) {
+            for (let j = 0; j < oList.length; j++) {
+                oList[j].className = oDiv[j].className = null;
+            }
+            this.className = 'select';
+            oDiv[n].className = 'select';
+        }
+        for (var i = 0; i < oList.length; i++) {
+            oList[i].myIndex = i;
+            oList[i].onclick = function () {
+                var curSiblings = utils.siblings(this);
+                for (var i = 0; i < curSiblings.length; i++) {
+                    utils.removeClass(curSiblings[i], "select");
+                }
+                utils.addClass(this, "select");
+
+                var index = utils.index(this);
+                var divList = utils.nextAll(this.parentNode);
+                for (var i = 0; i < divList.length; i++) {
+                    i === index ? utils.addClass(divList[i], "select") : utils.removeClass(divList[i], "select");
+                }
+            };
+        }
+
+
+
+    </script>
+</body>
+
+</html>

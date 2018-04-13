@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>71-匀速运动</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            height: 200px;
+            width: 200px;
+
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+
+    </div>
+    <script src="js/utils2.js"></script>
+    <script>    
+        //->实现一个匀速运动，在指定的时间内完成动画：计算出总距离/总时间，根据总距离和总时间求出步长（没10ms走一步的话，一步需要走多远）
+        //->设置一个定时器，让元素每一次都在当前的基础上累加步长即可
+        // var oBox = document.getElementById("box");
+        // //var maxLeft=(document.documentElement.clientWidth||document.body.clientWidth);
+        // var maxLeft = utils.win("clientWidth") - oBox.offsetWidth;
+        // //总距离/总时间，求步长
+        // var duration = 2000;
+        // var step = maxLeft / duration * 10;
+        // var timer = window.setInterval(function () {
+        //     var curLeft = utils.css(oBox, "left");
+        //     if (curLeft >= maxLeft) {
+        //         window.clearInterval(timer);
+        //         return;
+        //     }
+        //     curLeft += step;
+        //     utils.css(oBox, "left", curLeft);
+
+        // }, 10);
+
+
+
+        //第二种思想
+        //->实现一个匀速运动，在指定的时间内完成动画:自己写一个动画公式，根据当前走的时间t，总时间duration，
+        //起始位置b,总距离c,计算出当前元素应该在的位置，让元素运动到这个位置即可。
+        function Linear(t, b, c, d) {
+            return c * (t / d) + b;
+            //(time / duration) * change + begin
+        }
+        var oBox = document.getElementById("box");
+        var target = utils.win("clientWidth") - oBox.offsetWidth;//目标值
+        var begin = utils.css(oBox, "left");//起始值
+        var change = target - begin;//总距离
+        var duration = 2000;//总时间
+        var time = null;//当前时间，一直在变
+        var timer = window.setInterval(function () {
+            time += 10;
+            if (time >= duration) {//运动的时间已经大于总时间了
+                utils.css(oBox, "left", target);
+                window.clearInterval(timer);
+                return;
+            }
+            var curPosition = Linear(time, begin, change, duration)
+            utils.css(oBox, "left", curPosition);
+
+        }, 10);
+    </script>
+</body>
+
+</html>

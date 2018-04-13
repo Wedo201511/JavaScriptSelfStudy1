@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>复习Dom</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div id="div1">
+        <span></span>
+        <span></span>
+        <span></span>
+        <p>
+            <span></span>
+            <span></span>
+        </p>
+    </div>
+    <script>
+     var div1=document.getElementById("div1");
+     var frg=document.createDocumentFragment("<span id='test'></span>");
+     div1.appendChild(frg);
+     console.log(div1.parentElement);
+    </script>
+    <script>
+        //什么叫做文档对象模型：document object model 文档对象模型，里面提供了一些属性和方法，可以让我们操作页面中的元素
+        // document.getElementById();
+        // context.getElementsByTagName(TAGNAME);// -> 把指定容器中子子孙孙辈分的所有标签名为TAGNAME的都获取到
+        //如果只想获取孩子元素的，怎么办？
+        // context.getElementsByClassName(CLASSNAME);// -> 在IE6~8下不兼容，通过样式类名获取元素集合
+        // document.getElementsByName()//通过name属性获取元素集合。在IE浏览器中只对表单元素的name起作用
+        // document.body//获取body
+        // document.documentElement//获取整个HTML
+        // //移动端专用的：
+        // context.querySelector/context.querySelectorAll;// -> 在IE6~8下不兼容。通过它获取到的集合是不存在DOM映射关系的。通过选择器获取一个或者一组元素。（看上去是nodeList集合，实际上是staticNodeList集合，静态的节点集合是不存在映射关系的）
+
+
+        //->描述节点和节点之间关系的属性
+        // childNodes(获取所有的子节点（元素、文本、注释），在标准的浏览器中，会把空格和换行当做文本节点处理)
+        // children// -> 在IE6~8下获取的结果和标准浏览器获取的结果不一致
+        // parentNode
+        // previousSibling/previousElementSibling获取上一个哥哥节点/获取上一个哥哥元素节点
+        // nextSibling/nextElementSibling获取下一个弟弟节点/获取下一个弟弟元素节点
+        // lastChild/lastElementChild
+        // firstChild/firstElementChild
+
+        // 动态操作DOM的方法，关于DOM的增删改
+      
+
+        //DOM的盒子模型
+        var oDiv=document.getElementById("div1");
+        var list=oDiv.getElementsByTagName("span");
+        console.log(list);
+
+        //->接下来写的所有的方法在JQuery中的作用和方法名一模一样
+        //->接下来写的所有的方法在JQuery中的作用和方法名一模一样
+        //->接下来写的所有的方法在JQuery中的作用和方法名一模一样
+       //->function children-->获取某一个容器中所有的元素子节点，（还可以筛选出指定标签名的）
+        function children(){
+
+        }
+        //->getElementsByClass  -->通过元素的样式类名获取一组元素（兼容所有的浏览器）jquery中没有这个方法名，但是jquery的一部分选择器也是基于这个方法的原理来实现的
+        function getElementsByClass(){
+
+        }
+        //获取上一个哥哥元素节点（prev）、获取下一个弟弟节点(next)、获取所有的哥哥元素节点（prevAll)、获取所有的弟弟元素节点(nextAll)、获取相邻的两个元素节点（sibling）
+        //、获取所有的兄弟节点（siblings）
+        //->获取第一个元素子节点，获取最后一个元素子节点，这两个方法JQeury中也没有
+        //->index获取当前元素的索引
+
+        //->动态操作DOM的方法
+        prepend->和appendChild对应，增加到容器某一个元素的开头
+        insertAfter->insertBefore对应，增加到容器中某一个元素的后面
+
+        addClass 增加样式类名
+        removeClass 删除样式类名
+        hasClass判断是否存在某一个样式类名
+
+        //->JQuery:caa
+        getCss
+        setCss
+        setGroupCss
+
+        //->基于内置类的原型扩展一下我们常用的方法
+    </script>
+</body>
+
+</html>

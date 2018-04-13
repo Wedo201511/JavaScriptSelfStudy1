@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>65-setCss</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background: #ff3333;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <H4>在IE6~8下不支持getElementsByClassName方法-兼容性处理</H4>
+
+    <div id="box"></div>
+
+    <script src="utils2.js"></script>
+    <script>
+        var box = document.getElementById("box");
+        var curLeft = utils.getCss(box, "left");
+        console.log(curLeft);
+        //在JS中给元素样式设置属性值，只能通过curEle.style[attr]=value这种方式给当前元素设置行内方式
+        //获取样式的方式有两种：curEle.style和window.getComputedStyle/currentStyle
+        // box.style.left = "100px";
+        // box.style.width = 100 + "px";
+        // //给当前元素的某一个样式属性设置值（增加在行内样式上）
+        // function setCss(curEle, attr, value) {
+        //     //->在js中设置float样式值的话，也需要处理兼容
+        //     if (attr === "float") {
+        //         curEle["style"]["cssFloat"] = value;
+        //         curEle["style"]["styleFloat"] = value;
+        //         return;
+        //     }
+
+        //     //->如果打算设置的是元素的透明度，我们需要设置两套样式来兼容所有的浏览器
+        //     if (attr === "opacity") {
+        //         curEle["style"]["opacity"] = value;
+        //         curEle["style"]["filter"] = "alpha(opacity=" + value * 100 + ")";
+        //         return;
+        //     }
+
+        //     //->对于某些样式属性，如果传递进来的值没有加单位，我们需要把单位默认的补充上，这样的话更人性化
+        //     //->自动补充单位
+        //     var reg = /^(width|height|top|bottom|left|right|((margin|padding)(Top|Bottom|Left|Right)?))$/;
+        //     if (reg.test(attr)) {
+        //         if (!isNaN(value)) {//在判断传递进来的value是否是一个有效数字，是有效数字证明没有带单位，需要补上
+        //             value += "px";
+        //         }
+        //     }
+        //     curEle["style"][attr] = value;
+        // }
+        utils.setCss(box, "left", 100);
+        utils.setCss(box, "width", 200);
+        utils.setCss(box, "background", "green");
+        utils.setCss(box, "opacity", 0.1);
+        utils.setCss(box,"borderTop","10px solid #000");
+        utils.setCss(box,"padding","10px 20px 30px 40px ");
+    </script>
+</body>
+
+</html>

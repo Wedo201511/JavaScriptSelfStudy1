@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>75-避免全局timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 500px;
+            margin: 0;
+            padding: 0;
+            height: 200px;
+            width: 200px;
+            background: red;
+        }
+
+        .btn {
+            position: absolute;
+            top: 200px;
+            left: 100px;
+            height: 50px;
+        }
+
+        .btn input {
+            outline: none;
+            display: inline-block;
+            margin-left: 50px;
+            width: 100px;
+            height: 50px;
+            border: 1px solid green;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <div class="btn">
+        <input type="button" value="To Left" id="btnLeft"></input>
+        <input type="button" value="To Right" id="btnRight"></input>
+    </div>
+    <script src="js/utils2.js"></script>
+    <script>    
+        //不规定总时间，只规定步长
+        var oBox = document.getElementById("box");
+        var minLeft = 0;
+        var maxLeft = utils.win("clientWidth") - oBox.offsetWidth;
+        var step = 5;
+        
+        //为了让当前的元素，同一时间只运行一个动画（下一个动画开始的时候，首先把上一个动画的定时器清除掉）：
+        //保证当前元素所有动画接收定时器返回值的那个变量需要共享(把这个值放在元素的自定义属性上)
+        // var timer = null;(放在全局不好)
+        function move(target) {
+           // var timer = null;（放在私有作用域下，同一时间会造成有多个timer，然后元素会出现原地震动的效果）
+            _move();//避免作用域嵌套形成的累积问题
+            function _move() {//小move在需要target值时，只需要访问上级作用域大Move，大Move作用域一直不会销毁
+                window.clearTimeout(oBox.timer);
+                var curLeft = utils.css(oBox, "left");
+                if (curLeft < target) {
+                    curLeft += step;
+                    if (curLeft >= target) {
+                        utils.css(oBox, "left", target);       
+                        return;
+                    }
+                } else {
+                    curLeft -= step;
+                    if (curLeft <= target) {
+                        utils.css(oBox, "left", target);           
+                        return;
+                    }
+                }
+                utils.css(oBox, "left", curLeft);
+                oBox.timer = window.setTimeout(_move, 10);
+            }
+        }
+        
+        document.getElementById("btnLeft").onclick = function () {
+            move(minLeft);
+        };
+        document.getElementById("btnRight").onclick = function () {
+            move(maxLeft);
+        };
+
+    </script>
+</body>
+
+</html>

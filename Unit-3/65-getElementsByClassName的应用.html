@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>65-getElementsByClassName</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+        }
+
+        .bg {
+            background: #ff3333;
+        }
+
+        .border {
+            border: 5px solid green;
+        }
+
+        .position {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -100px 0 0 -100px;
+        }
+    </style>
+</head>
+
+<body>
+    <H4>在IE6~8下不支持getElementsByClassName方法-兼容性处理</H4>
+    <div class="w1 w2 w3"></div>
+    <div class="w2 w3"></div>
+    <div class="w1 w2"></div>
+    <div class="w1 w3"></div>
+    <div class="w3"></div>
+
+    <script src="utils2.js"></script>
+    <script>
+        console.log(document.getElementsByClassName("w3"));//只要包含这个样式类名就可以
+        console.log(document.getElementsByClassName("w3    w1"));//必须同时包含w1&&w3，和样式的顺序以及中间有多少个空格没有关系
+        console.log(document.getElementsByClassName("w4"));//->空集合
+
+        //->getElementsByClassName:通过元素的样式类名获取一组元素集合
+        //->className:要获取的样式类名（可能是一个也可能是多个）
+        //->context:获取元素的上下文->不传递的话，default value is document
+        // function getElementsByClassName(className, context) {
+        //     context = context || document;
+        //     // if (typeof context === "undefined") {
+        //     //     context = document;
+        //     // }
+        //     //->把传递进来的样式类名的首尾空格先去掉，然后在按照中间的空格拆分
+        //     var classNameAry = className.replace(/(^ +| +$)/g, "").split(/ +/g);
+        //     //->获取指定上下文中的所有标签，循环获取每个标签的className
+
+        //     var nodeList = context.getElementsByTagName("*");//获取所有标签
+        //     var ary = [];
+        //     for (var i = 0, len = nodeList.length; i < len; i++) {
+        //         var curNode = nodeList[i];
+        //         //console.log(curNode.className);
+        //         var isOK = true;//->假设curNode包含所有样式
+        //         for (var k = 0; k < classNameAry.length; k++) {
+        //             var curName = classNameAry[k];
+        //             var reg = new RegExp("(^| +)" + curName + "( +|$)")
+        //             if (!reg.test(curNode.className)) {
+        //                 isOK = false;
+        //                 break;
+        //             }
+        //         }
+        //         if (isOK) {
+        //             ary.push(curNode);
+        //         }
+        //     }
+        //     return ary;
+        // }
+        console.log(utils.getElementsByClassName("w3   w1"));
+    </script>
+</body>
+
+</html>

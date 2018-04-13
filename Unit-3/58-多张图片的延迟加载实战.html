@@ -1,12 +1,12 @@
-<!DOCTYPE <!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <title>Page Title</title>
     <!--做移动端响应式布局页面，我们必须加meta viewport-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, scalable=no,initial-scale=1, maximum-scale=1.0,minimum-scale=1.0">
     <style type="text/css">
         * {
             margin: 0;
@@ -50,6 +50,7 @@
             display: none;
             width: 100%;
             height: 100%;
+            opacity: 0;
         }
 
         .news li>div:nth-child(2) {
@@ -60,7 +61,7 @@
         .news li>div:last-child h2 {
             height: 20px;
             line-height: 20px;
-            /*实现文字超出一行，自动裁切*/
+            /*实现文字超出一行，自动裁切,需要三个样式*/
             overflow: hidden;
             text-overflow: ellipsis;
             /*裁切下去的部分，以...代表*/
@@ -124,13 +125,53 @@
                     str += "</li>";
                 }
             }
-
             news.innerHTML = str;
         }();
         //3、图片延迟加载
-        function lazyImg() {
-
+        //=>我先编写一个方法实现单张图片的延迟加载
+        function lazyImg(curImg) {
+            var oImg = new Image();
+            oImg.src = curImg.getAttribute("trueImage");
+            oImg.onload = function () {
+                curImg.src = this.src;
+                curImg.style.display = "block"
+                fadeIn(curImg);
+                oImg = null;
+            };
+            curImg.isLoad = true;
         }
+        //循环处理每一张图片
+        function handleAllImage() {
+            for (var i = 0, len = imgList.length; i < len; i++) {
+                var curImg = imgList[i];
+                if (curImg.isLoad == true) { continue; }
+                //只有A《B的时候，再进行处理
+                var curImgPar = curImg.parentNode;//当前A是隐藏的，offsetHeight值是0；我们计算A的值，其实是计算它父亲（容器）的值
+                var A = utils.offset(curImgPar).top + curImgPar.offsetHeight;
+                var B = utils.win("clientHeight") + utils.win("scrollTop");
+                if (A < B) {
+                    lazyImg(curImg);
+                }
+            }
+        };
+        //实现渐变效果
+        function fadeIn(curImg) {
+            var duration = 500, interval = 10, target = 1;
+            var step = (target / duration) * interval;
+            var timer = window.setInterval(function () {
+                var curOp =parseFloat( utils.getCss(curImg, "opacity"));
+                if (curOp >= 1) {
+                    curImg.style.opacity  = 1;
+                    window.clearInterval(timer);
+                    return;
+                };
+                curOp += step;
+                curImg.style.opacity = curOp;
+            }, interval)
+        }
+        //4、开始的时候，是过500ms加载第一屏图片，滚动条滚动的时候，加载其他图片
+        window.setTimeout(handleAllImage, 500);
+        window.onscroll=handleAllImage;
     </script>
 </body>
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>63-向容器中追加新元素的方法</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div id="div1">
+        <div></div>
+        <div></div>
+        <div id="div2">
+            <p></p>
+            <p></p>
+        </div>
+        <!--children在IE678与标准浏览器不一样，childNodes是兼容的-->
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+    <script src="utils2.js"></script>
+    <script>
+        var oDiv = document.getElementById("div2");
+        console.log(utils.prev(oDiv));
+        //append:向指定的容器末尾追加元素
+        //prepend:向指定的容器开头追加元素
+        //insertBefore：向容器中指定元素的前面追加元素
+        //insertAfter：向容器中指定元素的末尾追加元素
+
+    </script>
+</body>
+
+</html>

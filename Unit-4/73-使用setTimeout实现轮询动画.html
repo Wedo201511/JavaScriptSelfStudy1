@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>73-递归思想</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            height: 200px;
+            width: 200px;
+
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script src="js/utils2.js"></script>
+    <script>    
+        //不规定总时间，只规定步长
+        var oBox = document.getElementById("box");
+        var maxLeft = utils.win("clientWidth") - oBox.offsetWidth;
+        var step = 5;
+        //使用递归思想完成setTimeout的轮循动画：每一次在执行动画之前，首先把上一次设置的那个没有用的定时器clear掉，节约内存空间
+        var timer = null;//设置成全局变量，方便在不同的作用域之间清除timer
+        function move() {
+            window.clearTimeout(timer);
+            var curLeft = utils.css(oBox, "left");
+            if (curLeft + step >= maxLeft) {
+                utils.css(oBox, "left", maxLeft);//边界判断加上步长计算                
+                return;
+            }
+            curLeft += step;
+            utils.css(oBox, "left", curLeft);
+            timer = window.setTimeout(move, 10);
+        }
+
+        move();
+
+    </script>
+</body>
+
+</html>

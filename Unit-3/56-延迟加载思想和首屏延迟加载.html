@@ -68,8 +68,8 @@
 
             //->获取图片的地址，验证地址有效性，有效时赋值，无效时不进行赋值处理
             //var oImg=document.createElement("img");
-            var oImg = new Image;
-            oImg.src = imgFirst.getAttribute("trueImg");
+            var oImg = new Image;//创建一个临时Img标签
+            oImg.src = imgFirst.getAttribute("trueImg");//即使图片地址错了，用户也看不到碎图
             oImg.onload = function () {//->当图片能够正常加载
             //所有的事件绑定都是异步编程的、
                 imgFirst.src = this.src;
