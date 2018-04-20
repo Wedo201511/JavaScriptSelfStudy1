@@ -42,7 +42,7 @@
                 //->key:方向，例如:top/left...
                 if (target.hasOwnProperty(key)) {
                     var curPosition = zhufengEffect.Linear(time, begin[key], change[key], duration);
-                    utils.css(oBox, key, curPosition);
+                    utils.css(curEle, key, curPosition);
                 }
             }
 

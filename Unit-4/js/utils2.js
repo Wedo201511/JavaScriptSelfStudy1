@@ -328,6 +328,7 @@ var utils = (function () {
     //把方法都写在了不销毁的私有作用域当中，哪些方法外面需要使用的话，通过return暴露给utils这个命名空间
     return {
         listToArray: listToArray,
+        jsonParse:jsonParse,
         queryURLParameter: queryURLParameter,
         offset: offset,
         win: win,
