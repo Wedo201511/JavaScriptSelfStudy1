@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>90-轮播图-插件</title>
+    <link type="text/css" rel="stylesheet" href="css/banner.css" />
+
+</head>
+
+<body>
+
+    <div id="banner1" class="banner">
+        <div class="bannerInner">        </div>
+        <ul class="bannerTip">        </ul>
+        <a class="bannerLeft" href="javascript:;"></a>
+        <a class="bannerRight" href="javascript:;"></a>
+    </div>
+    <div id="banner2" class="banner" style="margin-top: 50px;">
+        <div class="bannerInner"></div>
+        <ul class="bannerTip"></ul>
+        <a class="bannerLeft" href="javascript:;"></a>
+        <a class="bannerRight" href="javascript:;"></a>
+    </div>
+
+    <script charset="utf-8" src="js/utils2.js"></script>
+    <script charset="utf-8" src="js/tween.js"></script>
+    <script charset="utf-8" src="js/bannerPlugin.js"></script>
+    <script>    
+        var banner1 = new AutoBanner("banner1", 1000, "json/banner.txt");
+        var banner2 = new AutoBanner("banner2", 3000, "json/banner2.txt");
+
+    </script>
+</body>
+
+</html>

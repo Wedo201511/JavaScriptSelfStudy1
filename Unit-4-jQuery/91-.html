@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery</title>
+</head>
+
+<body>
+<div>
+    <div id="div1" zhufeng="nicai"></div>
+    <div></div>
+    <div></div>
+    <ul>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+<input type="checkbox" checked="checked" />
+<div id="banner" class="banner">
+    <div class="bannerInner">
+        <div>
+            <img src="imgs/banner1.jpg"/>
+        </div>
+        <div>
+            <img  src="imgs/banner2.jpg"/>
+        </div>
+        <div>
+            <img  src="imgs/banner3.jpg"/>
+        </div>
+        <div>
+            <img src="imgs/banner4.jpg"/>
+        </div>
+
+    </div>
+    <ul class="bannerTip">
+        <li class="bg"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <a class="bannerLeft" href="javascript:;"></a>
+    <a class="bannerRight" href="javascript:;"></a>
+</div>
+
+    <script charset="utf-8" src="../JQuery/node_modules/jquery/dist/jquery.js"></script>
+    <script>    
+//1、jQuery:它是一个使用原生JS来封装的常用方法的类库（解决了浏览器的兼容问题）
+
+//2、jQuery
+//->核心
+
+//->选择器
+//->属性
+//->筛选
+//->CSS
+//->文档处理
+//->事件
+//->效果（动画）
+
+//->AJAX
+//->工具
+
+//2.1)选择器
+//->通过传递对应规则的内容（ID、标签名、样式名...），获取到页面中指定的元素/元素集合
+
+//->jQuery选择器获取到的结果是一个jQuery对象，可以使用jQuery中提供的那些属性和方法，但是不能直接的使用浏览器内置的属性和方法
+var $oDiv=jQuery("#div1");
+var $oDiv=$("#div1");//$===jQuery true
+console.log($oDiv.innerWidth());
+console.log($oDiv.attr("zhufeng"));
+//->JS获取到的结果是属于元素对象/元素集合/节点集合...它们可以使用浏览器为其提供的那些天生自带的属性和方法
+var oDiv=document.getElementById("div1");
+console.log(oDiv.clientWidth);
+console.log(oDiv.getAttribute("zhufeng"));
+
+//2.2关于原生JS对象和jQuery对象之间的转换
+//->原生转为jQuery：$(原生JS对象)
+console.log($(oDiv).attr(""));
+//->jQuery转为原生：直接通过索引获取对应的元素对象即可
+console.log($oDiv[0].getAttribute("zhufeng"));
+$oDiv.get(0);
+var elem=$("input")[0];
+
+
+
+//3、属性
+
+    </script>
+</body>
+
+</html>

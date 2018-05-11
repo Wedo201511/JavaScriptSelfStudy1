@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <style>
+        #box {
+            margin: 0;
+            padding: 0;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <p class="protected">test1</p>
+        <p>Hello</p>
+        <p>Hello Again</p>
+        <p class="selected">And Again</p>
+        <div id="div1">div1 </div>
+        <div id="div2">div2</div>
+        <div id="div3" name="zhufeng"></div>
+        <ul>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script charset="utf-8" src="../JQuery/node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        var $box = $("#box");
+        $box.css({
+            padding: 10,
+            margin: 100,
+            width: 200,
+            height: 200,
+            border: "10px solid green"
+        });
+        console.log($box.children());
+        console.log($box.children(".w1"));
+        console.log($box.children("ul"));
+        console.log($box.children("#div1"));
+        console.log($box.children("#div1,#div2"));
+        console.log($box.children("[name='zhufeng']"));
+
+        $("p").on("click", { title: "Title is" }, function (aa) {
+            alert(aa.data.title + ':' + $(this).text());
+        });
+        $("p").on("mouseover", setColor);
+        $("p").on("mouseout", function () {
+            $(this).css({ "color": "black" });
+        });
+
+        function setColor() {
+            $(this).css("color", "red");
+        }
+        $("p").off("mouseover");
+
+        $("div").each(function (index, item) {
+            console.log(item);
+        });
+        //数组
+        $.each([12, 23, 34], function (index, item) {
+            console.log(item);
+        });
+        //类数组
+        $.each(document.getElementsByTagName("div"), function (index, item) {
+            console.log(item);
+        });
+        //遍历对象
+        $.each({name:"zhufeng",age:9}, function (index, item) {
+            console.log(item);
+        });
+
+        $("#box").animate({left:xxx, top:xxx},duration,"linear/ease/easeIn/easeOut/easeInOut",function(){
+
+        })
+        //->stop:结束之前正在运行的动画，开启下一个新的动画
+        $("#box").stop().animate();
+    </script>
+</body>
+
+</html>

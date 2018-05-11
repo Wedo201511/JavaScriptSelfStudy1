@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <style>
+        #box {
+            margin: 0;
+            padding: 0;
+position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" id="start" value="Start" />
+    <input type="button" id="stop" value="Stop" />
+    <div id="box">      
+    </div>
+    <script charset="utf-8" src="../JQuery/node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        var $box = $("#box");
+        $box.css({
+
+            padding: 10,
+            left:0,
+            top:0,
+            width: 200,
+            height: 200,
+            border: "10px solid green"
+        });
+
+
+        //->stop:结束之前正在运行的动画，开启下一个新的动画
+        $("#start").on("click", function () {
+            $("#box").stop().animate({ left: 500 }, 5000, "swing");
+        })
+        $("#stop").on("click", function () {
+            $("#box").finish().animate({ top: 500 }, 5000, "linear");
+        })
+    </script>
+</body>
+
+</html>

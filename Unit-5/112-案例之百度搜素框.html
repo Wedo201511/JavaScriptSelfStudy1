@@ -11,20 +11,76 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size: 14px;
         }
-        input{
+
+        input {
             display: block;
             outline: none;
         }
-        a{
+
+        a {
             display: block;
             text-decoration: none;
             color: #000;
         }
-        .box{
+
+        a:hover,
+        a:active,
+        a:target {
+            text-decoration: none;
+            color: #000;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        /* .box{
             position: absolute;
+            width:500px;
             top:20px;
             left:50%;
-            margin-left: 
+            margin-left: -250px;
+        } */
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            border-top: 1px solid transparent;
+        }
+
+        .box {
+            margin: 20px auto;
+            width: 500px;
+        }
+
+        .box input {
+            padding: 0 10px;
+            width: 300px;
+            height: 35px;
+            border: 1px solid #008000;
+        }
+
+        .box ul {
+            display: none;
+            position: relative;
+            top: -1px;
+            border: 1px solid #008000;
+
+        }
+
+        .box ul li,
+        .box ul li a {
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .box ul li a {
+            padding: 0 10px;
+        }
+
+        .box ul li a:hover {
+            background: tan;
         }
     </style>
 </head>
@@ -33,29 +89,61 @@
 
     <div id="div1" class="box">
         <input type="text" id="searchInp" />
-        <ul>
+        <ul id="searchList">
             <li>
                 <a href="javascript:;">小燕子开始了</a>
             </li>
             <li>
-                <a href="javascript:;">珠峰培训node</a>
+                <a href="javascript:;">珠峰node</a>
             </li>
             <li>
-                <a href="javascript:;">珠峰培训HTML5培训</a>
+                <a href="javascript:;">珠峰喇嘛HTML5</a>
             </li>
             <li>
-                <a href="javascript:;">珠峰培训</a>
+                <a href="javascript:;">C3.JS/D3.JS</a>
             </li>
             <li>
-                <a href="javascript:;">珠峰培训reactJs</a>
+                <a href="javascript:;">珠峰HandleBarJSreactJs</a>
             </li>
         </ul>
     </div>
 
     <script charset="utf-8" src="js/jquery-1.11.3.js"></script>
     <script>    
+        //->显示：
+        //1)文本框获取焦点，并且框中有内容的时候
+        //2)在文本框中操作内容（新输入/删除），如果内容没有清空，我们就显示，否则就隐藏
 
-
+        //->隐藏：
+        //1)点击页面中其余位置（除了文本框和searchList里面的每一行）都隐藏
+        //2)点击searchList中的行，列表隐藏，但是还要把列表中的内容放到文本框里
+        var searchInp = document.getElementById("searchInp");
+        var searchList = document.getElementById("searchList");
+        searchInp.onfocus = searchInp.onkeyup = function (e) {
+            //获取文本框的内容，去除它的首尾空格
+            var val = this.value.replace(/(^ +)|( +$)/g, "");//去除首尾空格
+            searchList.style.display = val.length > 0 ? "block" : "none";
+        }
+        //事件委托，委托给body
+        document.body.onclick = function (e) {
+            searchInp
+            e.target = e.target || e.srcElement;
+            if (e.target.tagName.toLowerCase() === "a" && e.target.parentNode.parentNode.id === "searchList") {
+                searchList.style.display = "none";
+                searchInp.value = e.target.innerHTML;
+                return;
+            }
+            //1.->如果事件源是搜索框，还需要单独处理
+            // if(e.target.id==="searchInp"){
+            //     return;
+            // }
+            searchList.style.display = "none";
+        }
+        //2.我们可以阻止一个容器中某些特殊性的元素，让其不在委托范围内：我们只需要把这些不需要委托的阻止冒泡传播即可
+        searchInp.onclick = function (e) {
+            e = e || window.event;
+            e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
+        }
     </script>
 
 </html>
