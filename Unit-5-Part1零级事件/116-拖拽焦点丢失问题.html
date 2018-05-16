@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>拖拽过快问题</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        #box {
+            /*
+            实现在整个页面里居中（需要知道box的宽和高）
+             top:50%;
+            left: 50%;
+            margin: -100px 0px 0px -100px; */
+            /*
+            IE7兼容不好，主要用于移动端的开发，不知道盒子的尺寸
+             top:0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto; */
+            position: absolute;
+
+            width: 200px;
+            height: 200px;
+            background: red;
+            cursor: move;
+        }
+    </style>
+</head>
+
+<body>
+    <div>//=>拖拽的原理： 当鼠标移动过快时，鼠标脱离盒子，导致onmouseup和mousemove事件移除不了
+    </div>
+    <div>
+        <span>在IE和火狐下：我们用一个方法把盒子和当前的鼠标定在一起即可this.setCapture();</span>
+    </div>
+    <span>但是这个方法在谷歌下不兼容:Uncaught TypeError: this.setCapture is not a function</span>
+    <div>
+        //->鼠标再快也跑不出去文档：我们把onmouseup和mousemove绑定给document。
+    </div>
+    <script charset="utf-8" src="../JQuery/node_modules/jquery/dist/jquery.js"></script>
+    <div id="box"></div>
+    <script>    
+        /*拖拽的原理
+        1.当mouse down时，我们开始拖拽（给盒子绑定onmousemove和onmouseup）
+        2、when mouse move,我们计算盒子的最新位置
+        3、mouse up时，说明拖拽已经结束了，我们的move和up就没用了，我们在把这两个方法remove
+        */
+        //JS实现box居中
+        var box = document.getElementById("box");
+        box.style.top = ((document.documentElement.clientHeight || document.body.clientHeight) - box.offsetHeight) / 2 + "px";
+        box.style.left = ((document.documentElement.clientWidth || document.body.clientWidth) - box.offsetWidth) / 2 + "px";
+
+        box.onmousedown = down;
+        function down(e) {
+            e = e || window.target;
+            //->记录开始位置的信息
+            this["strX"] = e.clientX;
+            this["strY"] = e.clientY;
+            this["strL"] = parseFloat(this.style.left);
+            this["strT"] = parseFloat(this.style.top);
+
+            //->给元素绑定移动和抬起的事件
+            if (this.setCapture) {
+                his.setCapture();//->把当前的鼠标和this(#box)绑定在一起
+                this.onmousemove = move;
+                this.onmouseup = up;
+            } else {
+                // document.onmousemove = move;
+                // document.onmouseup = up;
+                var _this = this;
+                document.onmousemove = function (e) {
+                    //this->document
+                    // move(e)//move方法中的thsi是window
+                    move.call(_this, e);
+                };
+                document.onmouseup = function (e) {
+                    up.call(_this, e);
+                }
+            }
+
+        }
+        function move(e) {
+            //求oDiv距离body的left和top
+            e = e || window.event;
+            var curL = e.clientX - this["strX"] + this["strL"];
+            var curT = e.clientY - this["strY"] + this["strT"];
+            var minL = 0;
+            var minT = 0;
+            var maxL = (document.documentElement.clientWidth || document.body.clientWidth) - this.offsetWidth;
+            var maxT = (document.documentElement.clientHeight || document.body.clientHeight) - this.offsetHeight;
+            curL = curL < minL ? minL : (curL > maxL ? maxL : curL);
+            curT = curT < minL ? minT : (curT > maxT ? maxT : curT);
+
+            this.style.left = curL + 'px';//this是box
+            this.style.top = curT + 'px';
+        }
+        function up(e) {
+
+            if (this.releaseCapture) {
+                this.releaseCapture();//->把当前的鼠标和盒子解绑
+                this.onmousemove = null;
+                this.onmouseup = null;//当鼠标不再盒子上mouseUp时，盒子的mouseup事件触发不了，so mousemove事件取消不了
+            } else {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+
+        }
+    </script>
+</body>
+
+</html>
