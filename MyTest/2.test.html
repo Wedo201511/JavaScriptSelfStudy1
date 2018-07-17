@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <!--author:Vace_Vlm(ocdo@qq.com),create:2016年5月21日 下午10:45-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>title</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .box {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            width: 276px;
+            height: 276px;
+            /* background: red; */
+            transform: translate(-50%, -50%);
+            transform-origin: 50% 50%;
+        }
+
+        .asset__title--overlay {
+            position: relative;
+            max-height: 40px;
+            padding: 5px 16px;
+            background-image: url("bar.png");
+            background-size: cover;
+            opacity: 0.5;
+        }
+
+        .asset__title {
+            font-family: "Ubuntu", sans-serif;
+            color: #fff;
+            font-size: 24px;
+            line-height: 1.25;
+            overflow-y: hidden;
+        }
+        .asset__real_title {
+            position: absolute;
+            left: 0px;
+            top:0px;
+        }
+        .asset-overlay {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <img src="https://external.axisstatic.com/isl/api/v1/dataservice/ResizeImage/$value?Format='jpg'&amp;Quality=75&amp;ImageId='128548'&amp;EntityType='Item'&amp;EntityId='890'&amp;Width=276&amp;Height=276&amp;device='tv_generic'&amp;subscriptions='Basic'&amp;ResizeAction='fill'&amp;HorizontalAlignment='center'&amp;VerticalAlignment='top'"
+            alt="" width="276" height="276" srcset="https://external.axisstatic.com/isl/api/v1/dataservice/ResizeImage/$value?Format='jpg'&amp;Quality=75&amp;ImageId='128548'&amp;EntityType='Item'&amp;EntityId='890'&amp;Width=276&amp;Height=276&amp;device='tv_generic'&amp;subscriptions='Basic'&amp;ResizeAction='fill'&amp;HorizontalAlignment='center'&amp;VerticalAlignment='top' 1x, https://external.axisstatic.com/isl/api/v1/dataservice/ResizeImage/$value?Format='jpg'&amp;Quality=45&amp;ImageId='128548'&amp;EntityType='Item'&amp;EntityId='890'&amp;Width=552&amp;Height=552&amp;device='tv_generic'&amp;subscriptions='Basic'&amp;ResizeAction='fill'&amp;HorizontalAlignment='center'&amp;VerticalAlignment='top' 2x"
+            aria-hidden="true">
+        <div class="asset-overlay ">
+            <div class="asset__title asset__title--overlay" style="height: 80px;">TEST</div>
+            <div class="asset__title asset__real_title" style="height: 80px;">TEST</div>
+        </div>
+    </div>
+    <div class="box">
+            <img src="https://external.axisstatic.com/isl/api/v1/dataservice/ResizeImage/$value?Format='jpg'&amp;Quality=75&amp;ImageId='128548'&amp;EntityType='Item'&amp;EntityId='890'&amp;Width=276&amp;Height=276&amp;device='tv_generic'&amp;subscriptions='Basic'&amp;ResizeAction='fill'&amp;HorizontalAlignment='center'&amp;VerticalAlignment='top'"
+                alt="" width="276" height="276" srcset="https://external.axisstatic.com/isl/api/v1/dataservice/ResizeImage/$value?Format='jpg'&amp;Quality=75&amp;ImageId='128548'&amp;EntityType='Item'&amp;EntityId='890'&amp;Width=276&amp;Height=276&amp;device='tv_generic'&amp;subscriptions='Basic'&amp;ResizeAction='fill'&amp;HorizontalAlignment='center'&amp;VerticalAlignment='top' 1x, https://external.axisstatic.com/isl/api/v1/dataservice/ResizeImage/$value?Format='jpg'&amp;Quality=45&amp;ImageId='128548'&amp;EntityType='Item'&amp;EntityId='890'&amp;Width=552&amp;Height=552&amp;device='tv_generic'&amp;subscriptions='Basic'&amp;ResizeAction='fill'&amp;HorizontalAlignment='center'&amp;VerticalAlignment='top' 2x"
+                aria-hidden="true">
+            <div class="asset-overlay ">
+                <div class="asset__title--overlay" ><div class="asset__title" style="visibility: hidden">TEST</div></div>
+                <div class="asset__title asset__real_title">TEST</div>
+            </div>
+        </div>
+
+</body>
+
+</html>

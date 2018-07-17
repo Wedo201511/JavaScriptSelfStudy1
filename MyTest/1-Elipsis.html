@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.box {
+			width: 480px;
+			height: 120px;
+			font-size: 40px;
+			line-height: 60px;
+			border: solid gray 1px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id='box' class="box">
+		壹贰叁肆伍陆柒 捌玖拾壹贰叁肆伍陆柒捌玖拾壹贰叁肆伍陆柒捌玖拾
+	</div>
+	<div id='show' style="height: 200px; text-align: end"></div>
+	<script>
+		let tar = document.getElementById('box');
+		function show() {
+			show.innerHTML = `clientHeigth: ${tar.clientHeight} 
+								scrollHeight: ${tar.scrollHeight}
+								innerText lenght:${tar.innerText.length}`;
+		}
+		show();
+
+		function fn() {
+			let endIndex = tar.innerText.length - 1;
+			while (tar.scrollHeight > tar.clientHeight) {
+				tar.innerText = tar.innerText.substring(0, endIndex--);
+				tar.innerText = tar.innerText + '...';
+			}
+		}
+		function ellipsisText() {
+			let element = tar;
+			text = element.innerText;
+			const innerText = element.innerText;
+
+			if (element.scrollHeight <= element.clientHeight) {
+				return text;
+			}
+
+			const ellipsisAppdix = '...';
+			let tarText = innerText;
+
+			// find nearest index around wrap and unwrap
+			let curMin = 0,
+				curMax = innerText.length - 1;
+			console.log(`curMax initial value:${curMax}   tarText.length init value:${tarText.length} `);
+			const addHalfStep = () => {
+				console.log(`curMax:${curMax};curMin:${curMin};  tarText.length:${tarText.length}  (curMax - tarText.length) / 2 : ${(curMax - tarText.length) / 2}`);
+				return (curMax - curMin) / 2
+			};
+			const delHalfStep = () => {
+				console.log(`curMin:${curMin}; curMax:${curMax}; tarText.length:${tarText.length}  (tarText.length - curMin) / 2 : ${((tarText.length - curMin)/2)}`);
+				return tarText.length - (tarText.length - curMin) / 2
+			};
+
+			while (curMin < curMax - 1) {
+				if (element.scrollHeight > element.clientHeight) {
+					// need remove
+					curMax = tarText.length - 1;
+					let count = delHalfStep();
+					console.log(`delHalfStep:${count}`);
+					tarText = tarText.substr(0, count);
+				} else {
+					// need add
+					curMin = tarText.length;
+					let count = addHalfStep();
+					console.log(`addHalfStep:${count}`);
+					tarText = tarText + innerText.substr(tarText.length, count);
+				}
+
+				element.innerText = tarText + ellipsisAppdix;
+			}
+
+			return element.innerText;
+		}
+	</script>
+</body>
+
+</html>

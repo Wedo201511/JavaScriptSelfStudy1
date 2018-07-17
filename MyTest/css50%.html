@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>标准流</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.test1 {
+			width: 200px;
+			height: 200px;
+			background: red;
+			position: relative;
+		}
+
+
+		.container {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 40px;
+			height: 20px;
+			background-color: #acc;
+		}
+
+		#board {
+			width: 50%;
+			padding: 3%;
+			background: #09F;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+
+		}
+
+		/* transform: translateY(-50%) translateX(-50%);
+		居中原理：https://stackoverflow.com/questions/40530101/why-is-translatey-50-needed-to-center-an-element-which-is-at-top-50
+		有图有真相：https://segmentfault.com/q/1010000005151903/a-1020000005151995
+		Todo:	https://segmentfault.com/q/1010000009693337
+		*/
+	</style>
+</head>
+
+<body>
+	<div class="container" id="container">
+
+	</div>
+	<div class="test1">
+		<div id="board">
+		</div>
+	</div>
+	<script>
+
+	</script>
+</body>
+
+</html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>慕课网position</title>
+    <title>Flex Layout</title>
     <style>
         * {
             margin: 0;
@@ -17,9 +17,9 @@
         }
 
         .test {
-            position: absolute;
-            left: 50px;
-            /*top: 50px; */
+           /*  position: absolute;
+           left: 50px;
+            top: 50px; */
             /* right: 50px;
             bottom: -100px; */
             width: 100px;
@@ -37,16 +37,15 @@
 </head>
 
 <body>
-
-    <div class="bro"> </div>
-    <div style="position: fixed;">
+    <div style="display: flex;">
+        <div class="bro"> </div>
         <div id="div1" class="test"></div>
         <div class="bro"> </div>
     </div>
 
-    <script src="utils2.js"></script>
+
     <script>
-        var oDiv = document.getElementById("div2");
+        var oDiv = document.getElementById("div1");
 
     </script>
 </body>
