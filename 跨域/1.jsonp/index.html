@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+
+<body>
+	<div>
+		<p>script标签src可以直接引别人家的JS，script标签不存在跨域问题</p>
+		<p>link标签直接引JQuery的在线包，link标签不存在跨域问题</p>
+		<p>img的src直接引用一张图片的连接，img不存在跨域问题</p>
+		<p>
+			<h2>JSONP原理：</h2>
+			script标签src可以直接引别人家的JS，script标签不存在跨域问题
+		</p>
+		<p>
+			<h2>jsonp的缺点：</h2>
+			1.只能发送get请求(get请求是有长度限制的)，不能发送post put delete请求(原理决定的，script标签的src属性是用来请求资源的) 
+			<p>2.不安全，xss攻击,现在一般不采用了</p>
+		</p>
+	</div>
+
+	<!-- https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=show -->
+	<script>
+		function show(data) {
+			var msg = '';
+			for (var k in data) {
+				msg += k + ": " + data[k] + "\r\n";
+			}
+			alert(msg);
+		}
+	</script>
+
+	<script src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=show"></script>
+</body>
+
+</html>
