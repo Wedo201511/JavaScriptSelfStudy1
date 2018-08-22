@@ -65,24 +65,17 @@ class Graph {
     getAllPathsWithMaxStops(start, end, maxStops) {
         this.allPaths = []; // empty array DFS
         this.stack = [];
+        console.log(this.vertexList);
         this.DFS(start, end, maxStops);
-        // let startNode = this.vertexList.find((item) => item.name === start);
-        // stack.push(startNode.name);
-        // if (startNode.nextVertexList && startNode.nextVertexList.length) {
-        //     for (let i = 0; i < startNode.nextVertexList.length; i++) {
-        //         let nextV = startNode.nextVertexList[i];
-        //         stack.push(nextV.name);
-        //     }
-        // }
-
         return this.allPaths;
     }
 
     DFS(start, end, maxStops) {
-        if (this.stack.peek() === start && this.stack.length <= maxStops) {
+        if (this.stack.length > 1 && this.stack.peek() === this.stack[0] && this.stack.length <= maxStops) {
             console.log(this.stack.join('-'));
             this.allPaths.push(this.stack.join('-'));
         }
+        console.log(start, end, maxStops, this.stack);
         if (this.stack.length > maxStops) {
             console.log(this.stack.join('-'));
             this.allPaths.push(this.stack.join('-'));
@@ -93,10 +86,12 @@ class Graph {
         if (startNode.nextVertexList && startNode.nextVertexList.length) {
             for (let i = 0; i < startNode.nextVertexList.length; i++) {
                 let nextV = startNode.nextVertexList[i];
-                return this.DFS(nextV.vertex.name, end, maxStops)
+                this.DFS(nextV.vertex.name, end, maxStops)
             }
+            this.stack.pop();
+        } else {
+            this.stack.pop();
         }
-        return this.allPaths;
     }
     getAllPathsWithStops(start, end, stops) {
 
