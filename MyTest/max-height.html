@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>48-JS盒子模型</title>
+	<meta charset="utf-8" />
+	<link type="text/css" rel="stylesheet" href="css/tab.css"></link>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			font-size: 14px;
+		}
+
+		.father {
+			margin: 100px auto;
+			width: 200px;
+			max-height: 100px;
+			/* max-width: 100px;  */
+			border: 10px solid green;
+			line-height: 30px;
+			/* overflow: auto; */
+			overflow: hidden;
+			/* 溢出隐藏 */
+		}
+
+		.son {
+			max-height: 200px;
+			width: 1000px;
+			max-width: 100px;
+			border: 1px solid red;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="box" class="father">
+		<div class="son">
+			要得到你必须要付出 要付出你还要学会坚持 如果你真的觉得很难 那你就放弃 但你放弃了就不要在抱怨 我觉得人生就是这样，世界真的是平衡的 每个人都是通过自己的努力 去决定自己生活的样子。 要得到你必须要付出 要付出你还要学会坚持 如果你真的觉得很难
+			那你就放弃 但你放弃了就不要在抱怨 我觉得人生就是这样，世界真的是平衡的 每个人都是通过自己的努力 去决定自己生活的样子。
+
+		</div>
+	</div>
+
+	<script>
+		var box = document.getElementById('box');
+		console.log(`clientWidth ${box.clientWidth}`);
+		console.log(`clientHeight ${box.clientHeight}`);
+		console.log(`scrollWidth ${box.scrollTop}`);
+		console.log(`scrollHeight ${box.scrollHeight}`);
+
+		var son = document.getElementsByClassName('son')[0];
+		console.log(`son clientHeight ${son.clientHeight}`);
+		console.log(`son scrollHeight ${son.scrollHeight}`);
+		console.log(`son clientwidtht ${son.clientWidth}`);
+		console.log(`son scrollwidht  ${son.scrollWidth}`);
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="GBK">
+<title>隐藏功能</title>
+</head>
+<body>
+<div id="d1"><div id="fullText">以前铿锵有力的灵魂之声，不知道什么时候，被默默沉寂在心底。渴望着黑夜里，能有一双巨大有力的手，将我的冰冷握紧。在这些安静的日子里，一个人无言无语，对着搁置了很久的书，认真的翻阅起来。里面的一些话语，带着禅意，让人顿悟，豁然开明。</div> <div id="subText"></div><a id="btn" onclick="change()"></a></div>
+<script>
+    var text;
+    function show() {
+        text = document.getElementById("fullText").innerHTML;
+        document.getElementById("fullText").innerHTML = "";
+        document.getElementById("subText").style.float = "left";
+        document.getElementById("btn").style.float = "left";
+        if(text.length > 9) {
+            document.getElementById("subText").innerHTML = text.substring(0, 9);
+            document.getElementById("btn").innerHTML = "...显示全部";
+        } else {
+            document.getElementById("subText").innerHTML = text;
+            document.getElementById("btn").innerHTML = "";
+        }
+    }
+    function change() {
+        var t = document.getElementById("btn");
+        var tt = document.getElementById("subText");
+        if(t.innerHTML == "...显示全部") {
+            tt.innerHTML = text;
+            t.innerHTML = "收起"
+        } else {
+            tt.innerHTML = text.substring(0, 9);
+            t.innerHTML = "...显示全部"
+        }
+    }
+    show();
+
+</script>
+</body>
+</html>

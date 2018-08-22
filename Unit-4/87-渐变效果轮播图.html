@@ -3,40 +3,41 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>86-第二版轮播图-布局</title>
-    <link type="text/css" rel="stylesheet" href="css/banner.css"/>
-  
+    <title>87-第二版轮播图-布局</title>
+    <link type="text/css" rel="stylesheet" href="css/banner.css" />
+
 </head>
 
 <body>
 
     <div id="banner" class="banner">
-        <div class="bannerInner">
+        <!-- <div class="bannerInner">
             <div>
-                <img src="" trueImg="imgs/banner1.jpg"/>
-            </div>
+                <img src="" trueImg="imgs/banner1.jpg" /> </div>
             <div>
-                <img src="" trueImg="imgs/banner2.jpg"/>
-            </div>
+                <img src="" trueImg="imgs/banner2.jpg" /> </div>
             <div>
-                <img src="" trueImg="imgs/banner3.jpg"/>
-            </div>
+                <img src="" trueImg="imgs/banner3.jpg" /> </div>
             <div>
-                <img src="" trueImg="imgs/banner4.jpg"/>
-            </div>
-
-
-        </div>
+                <img src="" trueImg="imgs/banner4.jpg" /> </div>
+        </div> -->
         <ul class="bannerTip">
-            <li></li>
+            <li class="bg"></li>
             <li></li>
             <li></li>
             <li></li>
         </ul>
+         <a class="bannerLeft" href="javascript:;"></a><!--/*为什么用a标签做按钮？使用a标签的hover伪类兼容所有的浏览器*/ 阻止a标签的默认行为，我们一共有三种方式-->
+        <a class="bannerRight" href="javascript:;"></a>
+    </div>
+    <div id="banner2" class="banner" style="margin-top: 50px;">
+        <div class="bannerInner">
+        </div>
+        <ul class="bannerTip">
+        </ul>
         <a class="bannerLeft" href="javascript:;"></a>
         <a class="bannerRight" href="javascript:;"></a>
     </div>
-
 
     <script charset="utf-8" src="js/utils2.js"></script>
     <script charset="utf-8" src="js/tween.js"></script>

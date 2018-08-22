@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>96-多个选项卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            -webkit-user-select: none;
+            /*禁止用户选中文字*/
+        }
+
+        div {
+            width: 100px;
+            margin: 10px auto;
+            border: 1px solid green;
+        }
+
+
+        ul li {
+            list-style: none;
+            width: 100px;
+
+            line-height: 30px;
+            /*垂直居中*/
+            text-align: center;
+            /*水平居中*/
+            cursor: pointer;
+
+        }
+
+        h2 {
+            background-color: goldenrod;
+        }
+
+        .menu {}
+
+        .menuList {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu">
+        <ul>
+            <li class="box" id="tabFir1">
+                <h2>衬衫1</h2>
+                <ul class="menuList" style="display: block;">
+                    <li>页卡一</li>
+                    <li>页卡二</li>
+                    <li>页卡三</li>
+                    <li>页卡四</li>
+                </ul>
+
+            </li>
+            <li class="box" id="tabFir">
+                <h2>衬衫2</h2>
+                <ul class="menuList">
+                    <li>页卡一</li>
+                    <li>页卡二</li>
+                    <li>页卡三</li>
+                </ul>
+            </li>
+            <li class="box" id="tabFir">
+                <h2>衬衫3</h2>
+                <ul class="menuList">
+                    <li>页卡一</li>
+                    <li>页卡二</li>
+                    <li>页卡三</li>
+                    <li>页卡四</li>
+                </ul>
+
+            </li>
+        </ul>
+    </div>
+    <script src="../JQuery/node_modules/jquery/dist/jquery.js"></script>
+
+    <script>
+        $(".menu h2").on("click", function () {
+           // $(this).next().css("display", "none");
+           $(this).next().stop().slideToggle(500).parent().siblings().children("ul").slideUp(500);
+        });
+
+
+    </script>
+</body>
+
+</html>

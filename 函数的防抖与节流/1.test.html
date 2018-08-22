@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		body {
+			height: 2000px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>HOME</h1>
+	<div id='cc'></div>
+	<script>
+		// window.onscroll = function () {
+		// 	cc.innerText += 'scroll\r\n';
+		// };
+
+		var canRun = true;
+		window.onscroll = fn();
+
+		function fn() {
+			var canRun = true;
+			return function () {
+				if (!canRun) return;
+				canRun = false;
+				setTimeout(() => {
+					cc.innerText += 'scroll\r\n';
+					canRun = true;
+				}, 300);
+			}
+		}
+		window.onresize=function(){
+			cc.innerText += 'resize\r\n';
+		}
+	</script>
+</body>
+
+</html>

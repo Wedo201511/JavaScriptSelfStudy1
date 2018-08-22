@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>106-事件冒泡传播</title>
+    <style>
+        body,
+        div {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #outer {
+            margin: 20px auto;
+            /*水平居中*/
+            width: 300px;
+            height: 300px;
+            padding: 20px;
+            background: green;
+
+        }
+
+        #inner {
+            width: 200px;
+            height: 200px;
+            padding: 20px;
+            background: red;
+
+        }
+
+        #center {
+            width: 100px;
+            height: 100px;
+            background: orange;
+
+        }
+
+        /* 我们给li加:hover伪类，在IE: 6;浏览器中是不兼容的。只有a标签的这个伪类才是兼容所有浏览器的
+        #ul1 li:hover{
+            background-color: forestgreen;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="outer">
+        <div id="inner">
+            <div id="center"></div>
+        </div>
+    </div>>
+
+    <script>    
+        //事件的默认传播机制
+        //->捕获阶段：从外向内依次查找元素
+        //->目标阶段：当前事件源本身的操作
+        //->冒泡阶段：从内到外依次触发相关的行为（我们最常用的就是冒泡阶段
+        var outer = document.getElementById('outer');
+        var inner = document.getElementById('inner');
+        var center = document.getElementById('center');
+        //使用DOM0级事件给元素绑定行为，都是在行为触发后的冒泡阶段 把方法执行的
+        // document.body.onclick = function (e) {
+        //     alert('body');
+        //     console.log(e);
+        // };
+
+        // document.documentElement.onclick = function (e) {
+        //     alert('document');
+        //     console.log(e);
+        // };
+        // outer.onclick = function (e) {
+        //     alert('outer');
+        //     console.log(e);
+        // };
+        // inner.onclick = function (e) {
+        //     alert('inner');
+        //     console.log(e);
+        // };
+        // center.onclick = function (e) {
+        //     e = e || window.event;
+        //     //e.stopPropagation()
+        //     // e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
+        //     alert('center');
+        //     console.log(e);
+        // };
+
+        //使用DOM2级事件给元素绑定行为，都是在行为触发后的冒泡阶段 把方法执行的
+        //addEventListener
+        //->第一个参数：行为的类型
+        //->第二个参数：给当前的行为绑定的方法
+        //->第三个参数：是控制在哪个阶段发生，true在捕获阶段发生 false在冒泡阶段发生
+        document.body.addEventListener("click", function () {
+            console.log("body");
+        }, false);
+        outer.addEventListener("click", function () {
+            console.log("outer");
+        }, true);
+        inner.addEventListener("click", function () {
+            console.log("inner");
+        }, false);
+       
+    </script>
+</body>
+
+</html>

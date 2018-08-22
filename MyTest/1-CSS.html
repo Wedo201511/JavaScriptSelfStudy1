@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>标准流</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .test1 {
+           text-align: center;
+            position: relative;
+        }
+
+        .test2 {
+            text-align: center;
+
+            width: 400px;
+            margin-top: 100px;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* .test3 {
+            width: 300px;
+            height: 300px;
+            background: yellow;
+            position: relative;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        } */
+        /*居中：https://stackoverflow.com/questions/40530101/why-is-translatey-50-needed-to-center-an-element-which-is-at-top-50*/
+    </style>
+</head>
+
+<body>
+
+        <div class="test1" id="">
+            PIN required. Please go toroceeding.
+        </div>
+        <div class="test2" id="">
+            PIN required. Please go to https://demo.massiveaxis.com and create a PIN before proceeding.
+        </div>
+   
+    <script>
+        var par = document.getElementById('container');
+        var yellowBlock = document.getElementById('test3');
+        yellowBlock["style"]['display'] = 'none';
+        btnShow.onclick = function () {
+            yellowBlock["style"]['display'] = 'block';
+
+        };
+        btnHide.onclick = function () {
+            yellowBlock["style"]['display'] = 'none';
+        };
+    </script>
+</body>
+
+</html>

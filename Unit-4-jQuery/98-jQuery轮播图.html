@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>98-第二版轮播图-布局</title>
+    <link type="text/css" rel="stylesheet" href="css/banner.css" />
+
+</head>
+
+<body>
+    <div id="banner1" class="banner">
+        <div class="bannerInner">   </div>
+        <ul class="bannerTip"> </ul>
+        <a class="bannerLeft" href="javascript:;"></a>
+        <!--/*为什么用a标签做按钮？使用a标签的hover伪类兼容所有的浏览器*/ 阻止a标签的默认行为，我们一共有三种方式-->
+        <a class="bannerRight" href="javascript:;"></a>
+    </div>
+    <div id="banner2" class="banner">
+            <div class="bannerInner">   </div>
+            <ul class="bannerTip"> </ul>
+            <a class="bannerLeft" href="javascript:;"></a>
+            <!--/*为什么用a标签做按钮？使用a标签的hover伪类兼容所有的浏览器*/ 阻止a标签的默认行为，我们一共有三种方式-->
+            <a class="bannerRight" href="javascript:;"></a>
+        </div>
+    <script charset="utf-8" src="../JQuery/node_modules/jquery/dist/jquery.js"></script>
+    <script charset="utf-8" src="./banner.js"></script>
+    <script>    
+        $().banner("banner1","./json/banner.txt?_=",1000);
+        $().banner("banner2","./json/banner.txt?_=",3000);
+
+    </script>
+</body>
+
+</html>

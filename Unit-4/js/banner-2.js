@@ -55,32 +55,49 @@
                     oImg = null;
                 };
             }(i);
-           
-        }        
+
+        }
     }
     window.setTimeout(lazyImg, 500);
 
     //4、自动轮播
-    var interval = 1000;
-    var autoTimer = window.setInterval(autoMove, interval);
-    var step = 0;//记录当前显示的图片的索引
+    var interval = 1000, autoTimer = null;
+    autoTimer = window.setInterval(autoMove, interval);
+    var step = 0;//步长，记录当前显示的图片的索引
     function autoMove() {
-
-        if (step === count - 1) {
-            utils.css(bannerInner, "left", 0);
-            step = 0
-        }
-        step++;
-        zhufengAnimate(bannerInner, { left: -step * 1000 }, 500);
+        step >= imgList.length - 1 ? step = 0 : step++;
+        setBanner();
         changeTip();
     }
 
+    //实现切换效果
+    //1) 让step索引对应的那个div的z-index=1，其余的DIV的zIndex=0
+    //2) 让当前的透明度从零逐渐变为一。动画结束时，需要让其它DIV的透明度变为零
+    //3) 实现焦点对齐
+    function setBanner() {
+        //1) 让step索引对应的那个div的z-index=1，其余的DIV的zIndex=0
+        for (var i = 0, len = imgList.length; i < len; i++) {
+            var curDiv = divList[i];
+            if (i === step) {
+                utils.css(curDiv, "zIndex", 1);
+                //2) 让当前的透明度从零逐渐变为一。动画结束时，需要让其它DIV的透明度变为零
+                zhufengAnimate(curDiv, { opacity: 1 }, 500, function () {
+                    var curDivSib = utils.siblings(this);
+                    for (var k = 0, len = curDivSib.length; k < len; k++) {
+                        utils.css(curDivSib[k], "opacity", 0);
+                    }
+                });
+                continue;
+            }
+            utils.css(curDiv, "zIndex", 0);
+        }
+    }
     //5、焦点对齐
     function changeTip() {
-        var tempStep = step >= oLis.length ? 0 : step;
+        //var tempStep = step >= oLis.length ? 0 : step;
         for (var i = 0, len = oLis.length; i < len; i++) {
             var curLi = oLis[i];
-            i === tempStep ? utils.addClass(curLi, "bg") : utils.removeClass(curLi, "bg");
+            i === step ? utils.addClass(curLi, "bg") : utils.removeClass(curLi, "bg");
         }
     }
     //6、停止和开启自动轮播
@@ -99,22 +116,17 @@
             curLi.index = i;
             curLi.onclick = function () {
                 step = this.index;
+                setBanner();
                 changeTip();
-                zhufengAnimate(bannerInner, { left: -step * 1000 }, 500);
             };
         }
     }();
     //8、实现左右切换
     bannerLeft.onclick = function () {
         console.log(step);
-        if (step === 0) {
-            step = count - 1;
-            utils.css(bannerInner, "left", -1000 * step);
-
-        }
-        step--;
+        step === 0 ? step = oLis.length - 1 : step--;
+        setBanner();
         changeTip();
-        zhufengAnimate(bannerInner, { left: -step * 1000 }, 500);
     };
     bannerRight.onclick = function () {
         autoMove();
