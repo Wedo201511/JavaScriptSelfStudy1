@@ -1,0 +1,16 @@
+{
+  "name": "HomeWork-Ziye",
+  "version": "1.0.0",
+  "description": "JS",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest",
+    "start":"node main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^23.5.0"
+  }
+}
