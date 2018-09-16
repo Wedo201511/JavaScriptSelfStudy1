@@ -1,2 +1,2 @@
-# JavaScriptSelfStudy1
+## JavaScriptSelfStudy1
 JS
